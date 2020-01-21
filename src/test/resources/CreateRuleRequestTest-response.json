@@ -1,0 +1,21 @@
+{
+  "_id": "5c9602f5e881b5fbe91c754a",
+  "description": "Rule to post all incoming mail starting with test* to my webhook",
+  "enabled": true,
+  "name": "testprefixpost",
+  "conditions": [
+    {
+      "operation": "PREFIX",
+      "field": "to",
+      "value": "test"
+    }
+  ],
+  "actions": [
+    {
+      "action" : "WEBHOOK",
+      "action_data": {
+        "url" : "https://www.mywebsite.com/restendpoint"
+      }
+    }
+  ]
+}

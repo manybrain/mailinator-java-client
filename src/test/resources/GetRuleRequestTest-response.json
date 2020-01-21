@@ -1,0 +1,30 @@
+{
+  "_id": "5c9602f5e881b5fbe91c754a",
+  "description": "Rule to post all incoming mail to test1 or test2, then drop the email",
+  "enabled": true,
+  "match" : "ANY",
+  "name": "testprefixpost",
+  "conditions": [
+    {
+      "operation": "EQUALS",
+      "field": "to",
+      "value": "test1"
+    },
+    {
+      "operation": "EQUALS",
+      "field": "to",
+      "value": "test2"
+    }
+  ],
+  "actions" : [
+    {
+      "action" : "WEBHOOK",
+      "action_data": {
+        "url" : "https://www.mywebsite.com/restendpoint"
+      }
+    },
+    {
+      "action" : "DROP"
+    }
+  ]
+}
