@@ -3,48 +3,78 @@ package com.manybrain.mailinator.client.message;
 import com.manybrain.mailinator.client.domain.DomainType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
 import static com.manybrain.mailinator.client.TestEnv.*;
 
 class GetInboxRequestTest
 {
 
     @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
+    })
     void testInboxRequestWithPrivateDomain()
     {
-        Inbox inbox = MAILINATOR_CLIENT.request(new GetInboxRequest(DOMAIN_PRIVATE));
+        String domain = getPrivateDomain();
+        Inbox inbox = getMailinatorClient().request(new GetInboxRequest(domain));
         Assertions.assertNotNull(inbox);
     }
 
     @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_INBOX_TEST, matches = "[^\\s]+")
+    })
     void testInboxRequestWithPrivateDomainAndInbox()
     {
-        Inbox inbox = MAILINATOR_CLIENT
-                              .request(GetInboxRequest.builder().domain(DOMAIN_PRIVATE).inbox(INBOX_TEST).build());
+        String domain = getPrivateDomain();
+        Inbox inbox = getMailinatorClient()
+                              .request(GetInboxRequest.builder().domain(domain).inbox(getInboxTest()).build());
         Assertions.assertNotNull(inbox);
     }
 
     @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+")
+    })
     void testInboxRequestWithPrivateDomainCommon()
     {
         Inbox inbox =
-                MAILINATOR_CLIENT.request(GetInboxRequest.builder().domain(DomainType.PRIVATE).build());
+                getMailinatorClient().request(GetInboxRequest.builder().domain(DomainType.PRIVATE).build());
         Assertions.assertNotNull(inbox);
     }
 
     @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_INBOX_TEST, matches = "[^\\s]+")
+    })
     void testInboxRequestWithPublicDomainCommon()
     {
-        Inbox inbox = MAILINATOR_CLIENT
-                              .request(GetInboxRequest.builder().domain(DomainType.PUBLIC).inbox(INBOX_TEST).build());
+        Inbox inbox = getMailinatorClient()
+                              .request(GetInboxRequest.builder().domain(DomainType.PUBLIC).inbox(getInboxTest()).build());
         Assertions.assertNotNull(inbox);
     }
 
     @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
+    })
     void testInboxRequestWithPrivateDomainWithQueryParams()
     {
-        Inbox inbox = MAILINATOR_CLIENT.request(GetInboxRequest.builder().domain(DOMAIN_PRIVATE)
-                                                               .skip(10).limit(20).sort(Sort.ASC).decodeSubject(
-                        true).build());
+        String domain = getPrivateDomain();
+        Inbox inbox = getMailinatorClient().request(
+                GetInboxRequest.builder()
+                               .domain(domain)
+                               .skip(10)
+                               .limit(20)
+                               .sort(Sort.ASC)
+                               .decodeSubject(true)
+                               .build());
         Assertions.assertNotNull(inbox);
     }
 }

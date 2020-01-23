@@ -4,24 +4,30 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static com.manybrain.mailinator.client.TestEnv.DOMAIN_PRIVATE;
-import static com.manybrain.mailinator.client.TestEnv.MAILINATOR_CLIENT;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
+import static com.manybrain.mailinator.client.TestEnv.*;
 import static com.manybrain.mailinator.client.TestUtils.postMessage;
 
 class DeleteInboxMessagesRequestTest
 {
 
     @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+"),
+    })
     void testDeleteInboxMessagesRequest()
     {
         String inbox = "inbox " + UUID.randomUUID().toString();
+        String domain = getPrivateDomain();
 
-        postMessage(DOMAIN_PRIVATE, inbox);
-        postMessage(DOMAIN_PRIVATE, inbox);
-        postMessage(DOMAIN_PRIVATE, inbox);
+        postMessage(domain, inbox);
+        postMessage(domain, inbox);
+        postMessage(domain, inbox);
 
         DeletedMessages message =
-                MAILINATOR_CLIENT.request(new DeleteInboxMessagesRequest(DOMAIN_PRIVATE, inbox));
+                getMailinatorClient().request(new DeleteInboxMessagesRequest(domain, inbox));
 
         Assertions.assertNotNull(message);
         Assertions.assertEquals(Integer.valueOf(3), message.getCount());

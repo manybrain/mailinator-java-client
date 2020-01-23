@@ -4,19 +4,21 @@ import com.manybrain.mailinator.client.domain.DomainType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
-import static com.manybrain.mailinator.client.TestEnv.MAILINATOR_CLIENT;
-import static com.manybrain.mailinator.client.TestEnv.PHONE_NUMBER;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
+import static com.manybrain.mailinator.client.TestEnv.*;
 
 class GetSmsInboxRequestTest
 {
 
     @Test
-    @EnabledIfEnvironmentVariable(named = "MAILINATOR_TEST_USER", matches = "manybrain")
-        // it assumes some external test data
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_PHONE_NUMBER, matches = "[^\\s]+")
+    })
     void testSmsMessageRequest()
     {
         Inbox inbox =
-                MAILINATOR_CLIENT.request(new GetSmsInboxRequest(DomainType.PUBLIC, PHONE_NUMBER));
+                getMailinatorClient().request(new GetSmsInboxRequest(DomainType.PUBLIC, getPhoneNumber()));
         Assertions.assertNotNull(inbox);
     }
 }

@@ -3,7 +3,7 @@ package com.manybrain.mailinator.client;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 
 import com.manybrain.mailinator.client.domain.Domain;
@@ -14,7 +14,7 @@ import com.manybrain.mailinator.client.message.PostMessageRequest;
 import com.manybrain.mailinator.client.message.PostedMessage;
 import com.manybrain.mailinator.client.rule.*;
 import org.junit.jupiter.api.Assertions;
-import static com.manybrain.mailinator.client.TestEnv.MAILINATOR_CLIENT;
+import static com.manybrain.mailinator.client.TestEnv.getMailinatorClient;
 import static com.manybrain.mailinator.client.rule.ActionType.WEBHOOK;
 import static com.manybrain.mailinator.client.rule.OperationType.EQUALS;
 
@@ -29,7 +29,7 @@ public class TestUtils
                 new MessageToPost("raul", "testPostMessageRequest " + random, "text " + random);
 
         PostedMessage postedMessage =
-                MAILINATOR_CLIENT.request(new PostMessageRequest(domain, inbox, message));
+                getMailinatorClient().request(new PostMessageRequest(domain, inbox, message));
         Assertions.assertNotNull(postedMessage);
 
         return postedMessage;
@@ -37,7 +37,7 @@ public class TestUtils
 
     public static Domain getFirstAvailableDomain()
     {
-        Domains domains = MAILINATOR_CLIENT.request(new GetDomainsRequest());
+        Domains domains = getMailinatorClient().request(new GetDomainsRequest());
         Assertions.assertNotNull(domains);
         return domains.getDomains().get(0);
     }
@@ -53,11 +53,14 @@ public class TestUtils
         Condition condition = Condition.builder().operation(EQUALS).value("raul").build();
 
         String random = UUID.randomUUID().toString();
-        RuleToCreate ruleToCreate = RuleToCreate.builder().name("rule name " + random).priority(15)
-                                                .conditions(Arrays.asList(condition)).actions(
-                        Arrays.asList(action)).build();
+        RuleToCreate ruleToCreate = RuleToCreate.builder()
+                                                .name("rule name " + random)
+                                                .priority(15)
+                                                .conditions(Collections.singletonList(condition))
+                                                .actions(Collections.singletonList(action))
+                                                .build();
 
-        Rule rule = MAILINATOR_CLIENT.request(new CreateRuleRequest(domain.getId(), ruleToCreate));
+        Rule rule = getMailinatorClient().request(new CreateRuleRequest(domain.getId(), ruleToCreate));
         Assertions.assertNotNull(rule);
 
         return rule;

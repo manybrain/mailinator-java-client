@@ -7,7 +7,7 @@ import com.manybrain.mailinator.client.domain.Domain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import static com.manybrain.mailinator.client.TestEnv.MAILINATOR_CLIENT;
+import static com.manybrain.mailinator.client.TestEnv.getMailinatorClient;
 import static com.manybrain.mailinator.client.TestUtils.*;
 
 class DeleteRuleRequestTest
@@ -22,7 +22,7 @@ class DeleteRuleRequestTest
         Rule rule = createNewRule();
 
         ResponseStatus responseStatus =
-                MAILINATOR_CLIENT.request(new DeleteRuleRequest(domain.getId(), rule.getId()));
+                getMailinatorClient().request(new DeleteRuleRequest(domain.getId(), rule.getId()));
         Assertions.assertNotNull(responseStatus);
     }
 

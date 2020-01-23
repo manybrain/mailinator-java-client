@@ -8,7 +8,7 @@ import com.manybrain.mailinator.client.domain.Domain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import static com.manybrain.mailinator.client.TestEnv.MAILINATOR_CLIENT;
+import static com.manybrain.mailinator.client.TestEnv.getMailinatorClient;
 import static com.manybrain.mailinator.client.TestUtils.readTestFile;
 
 class GetRulesRequestTest
@@ -20,7 +20,7 @@ class GetRulesRequestTest
     {
         Domain domain = TestUtils.getFirstAvailableDomain();
 
-        Rules rules = MAILINATOR_CLIENT.request(new GetRulesRequest(domain.getId()));
+        Rules rules = getMailinatorClient().request(new GetRulesRequest(domain.getId()));
         Assertions.assertNotNull(rules);
     }
 

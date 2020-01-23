@@ -3,26 +3,31 @@ package com.manybrain.mailinator.client.message;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import static com.manybrain.mailinator.client.TestEnv.DOMAIN_PRIVATE;
-import static com.manybrain.mailinator.client.TestEnv.MAILINATOR_CLIENT;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
+import static com.manybrain.mailinator.client.TestEnv.*;
 import static com.manybrain.mailinator.client.TestUtils.postMessage;
 
 class DeleteDomainMessagesRequestTest
 {
 
-    @Disabled // it will clear whole domain
     @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DELETE_DOMAIN, matches = "true")
+    })
     void testDeleteDomainMessagesRequest()
     {
         String inbox = "inbox " + UUID.randomUUID().toString();
+        String domain = getPrivateDomain();
 
-        postMessage(DOMAIN_PRIVATE, inbox);
-        postMessage(DOMAIN_PRIVATE, inbox);
-        postMessage(DOMAIN_PRIVATE, inbox);
+        postMessage(domain, inbox);
+        postMessage(domain, inbox);
+        postMessage(domain, inbox);
 
-        DeletedMessages message = MAILINATOR_CLIENT.request(new DeleteDomainMessagesRequest(DOMAIN_PRIVATE));
+        DeletedMessages message = getMailinatorClient().request(new DeleteDomainMessagesRequest(domain));
 
         Assertions.assertNotNull(message);
     }
