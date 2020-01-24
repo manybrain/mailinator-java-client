@@ -10,19 +10,10 @@
 * build package by `mvn clean install`
   * built packages are located in `target` directory:
     * `mailinator-client-${version}.jar`
-      * slim jar without dependencies
-    * `mailinator-client-${version}-uber.jar`
-      * uber jar with all necessary dependencies
     * `mailinator-client-${version}-sources.jar`
     * `mailinator-client-${version}-javadoc.jar`
   
 #### How to use it
-
-##### in non-maven (non-dependencies-management tool) projects
-
-Use `mailinator-client-${version}-uber.jar` and add it to the classpath
-
-##### in maven projects
 
 Add dependency:
 
