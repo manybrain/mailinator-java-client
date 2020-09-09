@@ -3,15 +3,18 @@ package com.manybrain.mailinator.client.message;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Message
 {
-
+    @JsonProperty("is_first_exchange")
+    private Boolean isFirstExchange;
     @JsonProperty("fromfull")
     private String fromfull;
     @JsonProperty("headers")
