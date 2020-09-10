@@ -20,7 +20,7 @@ public class JerseyClient
     public static final Client CLIENT = ClientBuilder.newClient()
                                                      .register(new LoggingFeature(Logger.getLogger(
                                                              JerseyClient.class.getPackage().getName()),
-                                                                                  Level.INFO,
+                                                                                  Level.SEVERE,
                                                                                   null,
                                                                                   null))
                                                      .register(OBJECT_MAPPER);
