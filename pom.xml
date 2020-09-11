@@ -4,7 +4,7 @@
 
 	<groupId>com.manybrain</groupId>
 	<artifactId>mailinator-client</artifactId>
-	<version>1.4-SNAPSHOT</version>
+	<version>1.4</version>
 
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>https://www.mailinator.com/ Java client</description>
@@ -30,7 +30,8 @@
 		<connection>scm:git:git://github.com/manybrain/mailinator-java-client.git</connection>
 		<developerConnection>scm:git:git@github.com:manybrain/mailinator-java-client.git</developerConnection>
 		<url>https://github.com/manybrain/mailinator-java-client/tree/master</url>
-	</scm>
+	  <tag>mailinator-client-1.4</tag>
+  </scm>
 
 	<properties>
 
