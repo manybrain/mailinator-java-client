@@ -13,11 +13,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Condition {
+public class ConditionData
+{
 
-	@JsonProperty("operation")
-	public OperationType operation;
-	@JsonProperty("condition_data")
-	public ConditionData conditionData;
+    @JsonProperty("operation")
+    public OperationType operation;
+    @Builder.Default
+    @JsonProperty("field")
+    public String field = "to";
+    @JsonProperty("value")
+    public String value;
 
 }

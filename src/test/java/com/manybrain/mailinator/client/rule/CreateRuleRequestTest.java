@@ -1,37 +1,24 @@
 package com.manybrain.mailinator.client.rule;
 
-import java.io.IOException;
-
-import com.manybrain.mailinator.client.JerseyClient;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
+
+import static com.manybrain.mailinator.client.TestEnv.ENV_API_TOKEN;
+import static com.manybrain.mailinator.client.TestEnv.ENV_DOMAIN_RULES_LESS_THAN_LIMIT;
 import static com.manybrain.mailinator.client.TestUtils.createNewRule;
-import static com.manybrain.mailinator.client.TestUtils.readTestFile;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class CreateRuleRequestTest
-{
+class CreateRuleRequestTest {
 
-    @Disabled("Mailinator BUG: HTTP 404 ERROR: Unknown path")
-    @Test
-    void testCreateRuleRequest()
-    {
-        Rule rule = createNewRule();
-        Assertions.assertNotNull(rule);
-    }
-
-    /**
-     * Test prepared to test response from {@link CreateRuleRequest}
-     * <p>
-     * File response taken from https://manybrain.github.io/m8rdocs/#create-rule
-     */
-    @Test
-    void testCreateRuleRequestResponseParser()
-            throws IOException
-    {
-        Rule rule = JerseyClient.OBJECT_MAPPER.readValue(readTestFile("CreateRuleRequestTest-response.json"),
-                                                         Rule.class);
-        Assertions.assertNotNull(rule);
-    }
+	@Test
+	@EnabledIfEnvironmentVariables({
+			@EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+			@EnabledIfEnvironmentVariable(named = ENV_DOMAIN_RULES_LESS_THAN_LIMIT, matches = "true")
+	})
+	void testCreateRuleRequest() {
+		Rule rule = createNewRule();
+		assertNotNull(rule);
+	}
 
 }

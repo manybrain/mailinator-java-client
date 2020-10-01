@@ -18,18 +18,18 @@ public class CreateRuleRequest
         implements Request<Rule>
 {
 
-    private static final String URL = "https://api.mailinator.com/streams/{stream_id}/rules/";
+    private static final String URL = "https://api.mailinator.com/api/v2/domains/{domain_id}/rules/";
 
     private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 
     @NonNull
-    private final String streamId;
+    private final String domainId;
     @NonNull
     private final RuleToCreate rule;
 
     public Rule execute(String apiToken)
     {
-        WebTarget webTarget = WEB_TARGET.resolveTemplate("stream_id", emptyIfNull(streamId));
+        WebTarget webTarget = WEB_TARGET.resolveTemplate("domain_id", emptyIfNull(domainId));
 
         return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)

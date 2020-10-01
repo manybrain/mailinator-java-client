@@ -17,20 +17,20 @@ public class DeleteRuleRequest
         implements Request<ResponseStatus>
 {
 
-    private static final String URL = "https://api.mailinator.com/streams/:stream_id/rules/:rule_id";
+    private static final String URL = "https://api.mailinator.com/api/v2/domains/{domain_id}/rules/{rule_id}";
 
     private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 
     @NonNull
-    private final String streamId;
+    private final String domainId;
     @NonNull
     private final String ruleId;
 
     public ResponseStatus execute(String apiToken)
     {
         WebTarget webTarget = WEB_TARGET
-                                      .resolveTemplate("stream_id", emptyIfNull(streamId))
-                                      .resolveTemplate("ruleId", emptyIfNull(ruleId));
+                                      .resolveTemplate("domain_id", emptyIfNull(domainId))
+                                      .resolveTemplate("rule_id", emptyIfNull(ruleId));
 
         return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)

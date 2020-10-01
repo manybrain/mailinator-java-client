@@ -1,37 +1,33 @@
 package com.manybrain.mailinator.client.rule;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
 import com.manybrain.mailinator.client.Request;
-
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 @RequiredArgsConstructor
-public class GetRulesRequest
-        implements Request<Rules>
-{
+public class GetRulesRequest implements Request<Rules> {
 
-    private static final String URL = "https://api.mailinator.com/streams/{stream_id}/rules/";
+	private static final String URL = "https://api.mailinator.com/api/v2/domains/{domain_id}/rules/";
 
-    private static final WebTarget WEB_TARGET = CLIENT.target(URL);
+	private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 
-    @NonNull
-    private final String streamId;
+	@NonNull
+	private final String domainId;
 
-    public Rules execute(String apiToken)
-    {
-        WebTarget webTarget = WEB_TARGET.resolveTemplate("stream_id", emptyIfNull(streamId));
+	public Rules execute(String apiToken) {
+		WebTarget webTarget = WEB_TARGET.resolveTemplate("domain_id", emptyIfNull(domainId));
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
-                        .header(AUTHORIZATION, apiToken)
-                        .get(Rules.class);
-    }
-
+		return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+						.header(AUTHORIZATION, apiToken)
+						.get(Rules.class);
+	}
 
 }

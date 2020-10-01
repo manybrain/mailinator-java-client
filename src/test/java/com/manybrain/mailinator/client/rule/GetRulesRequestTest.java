@@ -1,40 +1,28 @@
 package com.manybrain.mailinator.client.rule;
 
-import java.io.IOException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
 
-import com.manybrain.mailinator.client.JerseyClient;
 import com.manybrain.mailinator.client.TestUtils;
 import com.manybrain.mailinator.client.domain.Domain;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+
+import static com.manybrain.mailinator.client.TestEnv.ENV_API_TOKEN;
+import static com.manybrain.mailinator.client.TestEnv.ENV_DOMAIN_RULES_LESS_THAN_LIMIT;
 import static com.manybrain.mailinator.client.TestEnv.getMailinatorClient;
-import static com.manybrain.mailinator.client.TestUtils.readTestFile;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class GetRulesRequestTest
-{
+class GetRulesRequestTest {
 
-    @Disabled("Mailinator BUG: HTTP 404 ERROR: Unknown path")
-    @Test
-    void testGetRulesRequest()
-    {
-        Domain domain = TestUtils.getFirstAvailableDomain();
+	@Test
+	@EnabledIfEnvironmentVariables({
+			@EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+			@EnabledIfEnvironmentVariable(named = ENV_DOMAIN_RULES_LESS_THAN_LIMIT, matches = "true")
+	})
+	void testGetRulesRequest() {
+		Domain domain = TestUtils.getFirstAvailableDomain();
 
-        Rules rules = getMailinatorClient().request(new GetRulesRequest(domain.getId()));
-        Assertions.assertNotNull(rules);
-    }
-
-    /**
-     * Test prepared to test response from {@link GetRulesRequest}
-     * <p>
-     * File response taken from https://manybrain.github.io/m8rdocs/#get-all-rules
-     */
-    @Test
-    void testGetRulesRequestResponseParser()
-            throws IOException
-    {
-        Rules rules = JerseyClient.OBJECT_MAPPER
-                              .readValue(readTestFile("GetRulesRequestTest-response.json"), Rules.class);
-        Assertions.assertNotNull(rules);
-    }
+		Rules rules = getMailinatorClient().request(new GetRulesRequest(domain.getId()));
+		assertNotNull(rules);
+	}
 }
