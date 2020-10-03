@@ -21,6 +21,7 @@ public class TestEnv
     public static final String ENV_MESSAGE_WITH_ATTACHMENT_ID = "MAILINATOR_TEST_MESSAGE_WITH_ATTACHMENT_ID";
     public static final String ENV_ATTACHMENT_ID = "MAILINATOR_TEST_ATTACHMENT_ID";
     public static final String ENV_PHONE_NUMBER = "MAILINATOR_TEST_PHONE_NUMBER";
+    public static final String ENV_DOMAIN_RULES_LESS_THAN_LIMIT = "ENV_DOMAIN_RULES_LESS_THAN_LIMIT";
 
     // variables initialization
 
