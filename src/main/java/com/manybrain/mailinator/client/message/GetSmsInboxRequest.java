@@ -18,7 +18,7 @@ public class GetSmsInboxRequest
         implements Request<Inbox>
 {
 
-    private static final String URL = "https://api.mailinator.com/v2/domains/{domain}/inboxes/{phoneNumber}";
+    private static final String URL = "https://mailinator.com/api/v2/domains/{domain}/inboxes/{phoneNumber}";
 
     private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

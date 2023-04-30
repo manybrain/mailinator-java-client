@@ -18,7 +18,7 @@ public class CreateRuleRequest
         implements Request<Rule>
 {
 
-    private static final String URL = "https://api.mailinator.com/api/v2/domains/{domain_id}/rules/";
+    private static final String URL = "https://mailinator.com/api/v2/domains/{domain_id}/rules/";
 
     private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

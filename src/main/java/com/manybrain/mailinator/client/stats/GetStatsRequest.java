@@ -10,7 +10,7 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 public class GetStatsRequest implements Request<Stats> {
 
-	private static final String URL = "https://api.mailinator.com/v2/team/stats";
+	private static final String URL = "https://mailinator.com/api/v2/team/stats";
 
 	private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

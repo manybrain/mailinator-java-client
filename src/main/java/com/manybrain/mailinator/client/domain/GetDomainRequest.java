@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GetDomainRequest implements Request<Domain> {
 
-  private static final String URL = "https://api.mailinator.com/v2/domains/{domain_id}";
+  private static final String URL = "https://mailinator.com/api/v2/domains/{domain_id}";
 
   private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

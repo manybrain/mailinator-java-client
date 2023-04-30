@@ -17,7 +17,7 @@ public class GetAttachmentsRequest
         implements Request<Attachments>
 {
 
-    private static final String URL = "https://api.mailinator.com/v2/domains/{domain}/inboxes/{inbox}/messages/{message_id}/attachments";
+    private static final String URL = "https://mailinator.com/api/v2/domains/{domain}/inboxes/{inbox}/messages/{message_id}/attachments";
 
     private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

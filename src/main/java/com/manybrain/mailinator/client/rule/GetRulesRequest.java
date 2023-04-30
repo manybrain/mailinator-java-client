@@ -15,7 +15,7 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 @RequiredArgsConstructor
 public class GetRulesRequest implements Request<Rules> {
 
-	private static final String URL = "https://api.mailinator.com/api/v2/domains/{domain_id}/rules/";
+	private static final String URL = "https://mailinator.com/api/v2/domains/{domain_id}/rules/";
 
 	private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

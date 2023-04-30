@@ -16,7 +16,7 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 @RequiredArgsConstructor
 public class DisableRuleRequest implements Request<ResponseStatus> {
 
-	private static final String URL = "https://api.mailinator.com/api/v2/domains/{domain_id}/rules/{rule_id}/disable";
+	private static final String URL = "https://mailinator.com/api/v2/domains/{domain_id}/rules/{rule_id}/disable";
 
 	private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

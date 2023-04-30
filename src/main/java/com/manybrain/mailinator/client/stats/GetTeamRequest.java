@@ -10,7 +10,7 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 public class GetTeamRequest implements Request<Team> {
 
-	private static final String URL = "https://api.mailinator.com/v2/team";
+	private static final String URL = "https://mailinator.com/api/v2/team";
 
 	private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 
