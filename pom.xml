@@ -4,7 +4,7 @@
 
 	<groupId>com.manybrain</groupId>
 	<artifactId>mailinator-client</artifactId>
-	<version>1.7-SNAPSHOT</version>
+	<version>1.7</version>
 
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>https://www.mailinator.com/ Java client</description>
@@ -57,7 +57,7 @@
 		<maven.source.plugin.version>3.2.1</maven.source.plugin.version>
 		<maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
 		<maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
-		<maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
+		<maven.gpg.plugin.version>3.1.0</maven.gpg.plugin.version>
 		<maven.nexus.staging.plugin.version>1.6.7</maven.nexus.staging.plugin.version>
 		<maven.release.plugin.version>3.0.0-M1</maven.release.plugin.version>
 
@@ -201,6 +201,7 @@
 									<gpgArguments>
 										<arg>--pinentry-mode</arg>
 										<arg>loopback</arg>
+										<arg>--batch</arg>
 									</gpgArguments>
 								</configuration>
 							</execution>
