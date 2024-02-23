@@ -22,7 +22,7 @@ class GetRulesRequestTest {
 	void testGetRulesRequest() {
 		Domain domain = TestUtils.getFirstAvailableDomain();
 
-		Rules rules = getMailinatorClient().request(new GetRulesRequest(domain.getId()));
+		Rules rules = getMailinatorClient().request(new GetRulesRequest(domain.getName()));
 		assertNotNull(rules);
 	}
 }

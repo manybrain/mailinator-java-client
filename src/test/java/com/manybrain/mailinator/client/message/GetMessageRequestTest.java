@@ -26,20 +26,22 @@ class GetMessageRequestTest
 
         PostedMessage postedMessage = postMessage(domain, inbox);
 
-        Message message = getMailinatorClient().request(new GetMessageRequest(domain, inbox, postedMessage.getId()));
+        Message message = getMailinatorClient().request(new GetMessageRequest(domain, postedMessage.getId()));
         Assertions.assertNotNull(message);
+        
+        DeletedMessages deletedMessages =
+                getMailinatorClient().request(new DeleteMessageRequest(domain, inbox, postedMessage.getId()));
     }
 
     @Test
     @EnabledIfEnvironmentVariables({
             @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
-            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+"),
-            @EnabledIfEnvironmentVariable(named = ENV_INBOX_TEST, matches = "[^\\s]+")
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
     })
     void testMessageRequestWhenMessageDoesNotExist()
     {
         String domain = getPrivateDomain();
         Assertions.assertThrows(InternalServerErrorException.class, () -> getMailinatorClient().request(
-                new GetMessageRequest(domain, getInboxTest(), UUID.randomUUID().toString())));
+                new GetMessageRequest(domain, UUID.randomUUID().toString())));
     }
 }

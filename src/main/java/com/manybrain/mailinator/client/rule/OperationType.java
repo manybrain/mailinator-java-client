@@ -3,5 +3,6 @@ package com.manybrain.mailinator.client.rule;
 public enum OperationType
 {
     EQUALS,
-    PREFIX
+    PREFIX,
+    STARTS_WITH
 }

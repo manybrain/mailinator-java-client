@@ -25,7 +25,7 @@ class GetRuleRequestTest {
 
 		Rule rule = createNewRule();
 
-		final Rule ruleResponse = getMailinatorClient().request(new GetRuleRequest(domain.getId(), rule.getId()));
+		final Rule ruleResponse = getMailinatorClient().request(new GetRuleRequest(domain.getName(), rule.getId()));
 		assertNotNull(ruleResponse);
 	}
 }

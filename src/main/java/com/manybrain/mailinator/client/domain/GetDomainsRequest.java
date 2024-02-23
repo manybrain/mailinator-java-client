@@ -1,5 +1,6 @@
 package com.manybrain.mailinator.client.domain;
 
+import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import javax.ws.rs.client.WebTarget;
@@ -8,7 +9,7 @@ import com.manybrain.mailinator.client.Request;
 
 public class GetDomainsRequest implements Request<Domains> {
 
-  private static final String URL = "https://api.mailinator.com/v2/domains/";
+  private static final String URL = BASE_URL + "/domains/";
 
   private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

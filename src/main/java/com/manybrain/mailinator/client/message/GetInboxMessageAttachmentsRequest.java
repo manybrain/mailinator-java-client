@@ -8,16 +8,17 @@ import com.manybrain.mailinator.client.Request;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 @RequiredArgsConstructor
-public class GetAttachmentsRequest
+public class GetInboxMessageAttachmentsRequest
         implements Request<Attachments>
 {
 
-    private static final String URL = "https://api.mailinator.com/v2/domains/{domain}/inboxes/{inbox}/messages/{message_id}/attachments";
+    private static final String URL = BASE_URL + "/domains/{domain}/inboxes/{inbox}/messages/{message_id}/attachments";
 
     private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

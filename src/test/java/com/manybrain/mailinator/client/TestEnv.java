@@ -11,17 +11,24 @@ public class TestEnv
     private static String privateDomain;
     private static Integer attachmentId;
     private static MailinatorClient client;
+    private static MailinatorClient clientWithoutApiToken;
 
     // constants
 
     public static final String ENV_DELETE_DOMAIN = "MAILINATOR_TEST_DELETE_DOMAIN";
     public static final String ENV_API_TOKEN = "MAILINATOR_TEST_API_TOKEN";
     public static final String ENV_DOMAIN_PRIVATE = "MAILINATOR_TEST_DOMAIN_PRIVATE";
-    public static final String ENV_INBOX_TEST = "MAILINATOR_TEST_INBOX";
+    public static final String ENV_INBOX_TEST = "MAILINATOR_TEST_INBOX_TEST";
     public static final String ENV_MESSAGE_WITH_ATTACHMENT_ID = "MAILINATOR_TEST_MESSAGE_WITH_ATTACHMENT_ID";
     public static final String ENV_ATTACHMENT_ID = "MAILINATOR_TEST_ATTACHMENT_ID";
     public static final String ENV_PHONE_NUMBER = "MAILINATOR_TEST_PHONE_NUMBER";
-    public static final String ENV_DOMAIN_RULES_LESS_THAN_LIMIT = "ENV_DOMAIN_RULES_LESS_THAN_LIMIT";
+    public static final String ENV_DOMAIN_RULES_LESS_THAN_LIMIT = "MAILINATOR_TEST_DOMAIN_RULES_LESS_THAN_LIMIT";
+    public static final String ENV_WEBHOOKTOKEN_PRIVATEDOMAIN = "MAILINATOR_TEST_WEBHOOKTOKEN_PRIVATEDOMAIN";
+    public static final String ENV_WEBHOOKTOKEN_CUSTOMSERVICE = "MAILINATOR_TEST_WEBHOOKTOKEN_CUSTOMSERVICE";
+    public static final String ENV_AUTH_SECRET = "MAILINATOR_TEST_AUTH_SECRET";
+    public static final String ENV_AUTH_ID = "MAILINATOR_TEST_AUTH_ID";
+    public static final String ENV_WEBHOOK_INBOX = "MAILINATOR_TEST_WEBHOOK_INBOX";
+    public static final String ENV_WEBHOOK_CUSTOMSERVICE = "MAILINATOR_TEST_WEBHOOK_CUSTOMSERVICE";
 
     // variables initialization
 
@@ -33,11 +40,26 @@ public class TestEnv
             {
                 if (client == null)
                 {
-                    client = new MailinatorClient(System.getenv(ENV_API_TOKEN));
+                    client = new MailinatorClient(ENV_API_TOKEN);
                 }
             }
         }
         return client;
+    }
+
+    public static MailinatorClient getMailinatorClientWithoutApiToken()
+    {
+        if (clientWithoutApiToken == null)
+        {
+            synchronized (TestEnv.class)
+            {
+                if (clientWithoutApiToken == null)
+                {
+                    clientWithoutApiToken = new MailinatorClient();
+                }
+            }
+        }
+        return clientWithoutApiToken;
     }
 
     public static String getPrivateDomain()
@@ -48,7 +70,7 @@ public class TestEnv
             {
                 if (privateDomain == null)
                 {
-                    privateDomain = System.getenv(ENV_DOMAIN_PRIVATE);
+                    privateDomain = ENV_DOMAIN_PRIVATE;
                 }
             }
         }
@@ -63,7 +85,7 @@ public class TestEnv
             {
                 if (inboxTest == null)
                 {
-                    inboxTest = System.getenv(ENV_INBOX_TEST);
+                    inboxTest = ENV_INBOX_TEST;
                 }
             }
         }
@@ -78,7 +100,7 @@ public class TestEnv
             {
                 if (messageWithAttachmentId == null)
                 {
-                    messageWithAttachmentId = System.getenv(ENV_MESSAGE_WITH_ATTACHMENT_ID);
+                    messageWithAttachmentId = ENV_MESSAGE_WITH_ATTACHMENT_ID;
                 }
             }
         }
@@ -93,7 +115,7 @@ public class TestEnv
             {
                 if (attachmentId == null)
                 {
-                    attachmentId = Integer.valueOf(System.getenv(ENV_ATTACHMENT_ID));
+                    attachmentId = Integer.valueOf(ENV_ATTACHMENT_ID);
                 }
             }
         }
@@ -108,7 +130,7 @@ public class TestEnv
             {
                 if (phoneNumber == null)
                 {
-                    phoneNumber = System.getenv(ENV_PHONE_NUMBER);
+                    phoneNumber = ENV_PHONE_NUMBER;
                 }
             }
         }

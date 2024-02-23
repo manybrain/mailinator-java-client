@@ -18,7 +18,7 @@ import static com.manybrain.mailinator.client.TestUtils.postMessage;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class GetLinksRequestTest
+class GetMessageRawRequestTest
 {
 
     @Test
@@ -27,27 +27,29 @@ class GetLinksRequestTest
             @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+"),
             @EnabledIfEnvironmentVariable(named = ENV_INBOX_TEST, matches = "[^\\s]+")
     })
-    void testGetLinksRequest()
+    void testGetRawRequest()
     {
         String domain = getPrivateDomain();
         String inbox = getInboxTest();
 
         PostedMessage postedMessage = postMessage(domain, inbox);
 
-        Links links = getMailinatorClient().request(new GetLinksRequest(domain, inbox, postedMessage.getId()));
-        assertNotNull(links);
+        String raw = getMailinatorClient().request(new GetMessageRawRequest(domain, postedMessage.getId()));
+        assertNotNull(raw);
+        
+        DeletedMessages message =
+                getMailinatorClient().request(new DeleteMessageRequest(domain, inbox, postedMessage.getId()));
     }
 
     @Test
     @EnabledIfEnvironmentVariables({
             @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
-            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+"),
-            @EnabledIfEnvironmentVariable(named = ENV_INBOX_TEST, matches = "[^\\s]+")
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
     })
-    void testGetLinksRequestWhenMessageDoesNotExist()
+    void testGetMessageRawRequestWhenMessageDoesNotExist()
     {
         String domain = getPrivateDomain();
         assertThrows(InternalServerErrorException.class, () -> getMailinatorClient().request(
-                new GetLinksRequest(domain, getInboxTest(), UUID.randomUUID().toString())));
+                new GetMessageRawRequest(domain, UUID.randomUUID().toString())));
     }
 }

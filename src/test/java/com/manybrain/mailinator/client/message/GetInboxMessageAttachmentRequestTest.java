@@ -8,7 +8,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
 import static com.manybrain.mailinator.client.TestEnv.*;
 
-class GetAttachmentRequestTest
+class GetInboxMessageAttachmentRequestTest
 {
 
     @Test
@@ -19,12 +19,12 @@ class GetAttachmentRequestTest
             @EnabledIfEnvironmentVariable(named = ENV_MESSAGE_WITH_ATTACHMENT_ID, matches = "[^\\s]+"),
             @EnabledIfEnvironmentVariable(named = ENV_ATTACHMENT_ID, matches = "[^\\s]+")
     })
-    void testAttachmentRequest()
+    void testInboxMessageAttachmentRequest()
     {
         String domain = getPrivateDomain();
 
         File file = getMailinatorClient().request(
-                new GetAttachmentRequest(domain, getInboxTest(), getMessageWithAttachmentId(), getAttachmentId()));
+                new GetInboxMessageAttachmentRequest(domain, getInboxTest(), getMessageWithAttachmentId(), getAttachmentId()));
         Assertions.assertNotNull(file);
         Assertions.assertTrue(file.exists());
         Assertions.assertTrue(file.isFile());

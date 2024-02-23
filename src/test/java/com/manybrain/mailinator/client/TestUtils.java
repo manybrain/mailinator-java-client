@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 
+import com.manybrain.mailinator.client.domain.CreateDomainRequest;
 import com.manybrain.mailinator.client.domain.Domain;
 import com.manybrain.mailinator.client.domain.Domains;
 import com.manybrain.mailinator.client.domain.GetDomainsRequest;
@@ -21,6 +22,7 @@ import com.manybrain.mailinator.client.rule.ConditionData;
 import com.manybrain.mailinator.client.rule.CreateRuleRequest;
 import com.manybrain.mailinator.client.rule.Rule;
 import com.manybrain.mailinator.client.rule.RuleToCreate;
+import com.manybrain.mailinator.client.webhook.Webhook;
 
 import static com.manybrain.mailinator.client.TestEnv.getMailinatorClient;
 import static com.manybrain.mailinator.client.rule.ActionType.WEBHOOK;
@@ -45,6 +47,13 @@ public class TestUtils {
 		Assertions.assertNotNull(domains);
 		return domains.getDomains()
 					  .get(0);
+	}
+
+	public static ResponseStatus createNewDomain(String domainName) {
+		ResponseStatus responseStatus = getMailinatorClient().request(new CreateDomainRequest(domainName));
+		Assertions.assertNotNull(responseStatus);
+
+		return responseStatus;
 	}
 
 	public static Rule createNewRule() {
@@ -104,5 +113,14 @@ public class TestUtils {
 		Assertions.assertTrue(file.exists());
 
 		return file;
+	}
+
+	public static Webhook getWebhookToAdd() {
+		return Webhook.builder()
+						.from("MyMailinatorJavaTest")
+						.subject("testing massage")
+						.text("hello world")
+						.to("jack")
+						.build();
 	}
 }

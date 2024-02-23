@@ -1,9 +1,5 @@
 package com.manybrain.mailinator.client.message;
 
-import static com.manybrain.mailinator.client.JerseyClient.OBJECT_MAPPER;
-
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

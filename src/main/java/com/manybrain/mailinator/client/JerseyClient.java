@@ -15,6 +15,8 @@ import org.glassfish.jersey.logging.LoggingFeature;
 public class JerseyClient
 {
 
+    public static final String BASE_URL = "https://api.mailinator.com/api/v2";
+    public static final String USER_AGENT = "Mailinator SDK - Java V1.7";
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static final Client CLIENT = ClientBuilder.newClient()
@@ -23,5 +25,6 @@ public class JerseyClient
                                                                                   Level.SEVERE,
                                                                                   null,
                                                                                   null))
-                                                     .register(OBJECT_MAPPER);
+                                                     .register(OBJECT_MAPPER)
+                                                     .property("User-Agent", USER_AGENT);
 }

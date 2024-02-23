@@ -8,7 +8,7 @@ import static com.manybrain.mailinator.client.TestEnv.*;
 import static com.manybrain.mailinator.client.TestUtils.postMessage;
 
 
-class GetAttachmentsRequestTest
+class GetInboxMessageAttachmentsRequestTest
 {
 
     @Test
@@ -18,11 +18,11 @@ class GetAttachmentsRequestTest
             @EnabledIfEnvironmentVariable(named = ENV_INBOX_TEST, matches = "[^\\s]+"),
             @EnabledIfEnvironmentVariable(named = ENV_MESSAGE_WITH_ATTACHMENT_ID, matches = "[^\\s]+")
     })
-    void testAttachmentsRequest()
+    void testInboxMessageAttachmentsRequest()
     {
         String domain = getPrivateDomain();
         Attachments attachments = getMailinatorClient()
-                                          .request(new GetAttachmentsRequest(domain,
+                                          .request(new GetInboxMessageAttachmentsRequest(domain,
                                                                              getInboxTest(),
                                                                              getMessageWithAttachmentId()));
         Assertions.assertNotNull(attachments);
@@ -34,7 +34,7 @@ class GetAttachmentsRequestTest
             @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+"),
             @EnabledIfEnvironmentVariable(named = ENV_INBOX_TEST, matches = "[^\\s]+")
     })
-    void testAttachmentsMissingRequest()
+    void testInboxMessageAttachmentsMissingRequest()
     {
         String domain = getPrivateDomain();
         String inbox = getInboxTest();
@@ -42,9 +42,12 @@ class GetAttachmentsRequestTest
         PostedMessage postedMessage = postMessage(domain, inbox);
 
         Attachments attachments =
-                getMailinatorClient().request(new GetAttachmentsRequest(domain, inbox, postedMessage.getId()));
+                getMailinatorClient().request(new GetInboxMessageAttachmentsRequest(domain, inbox, postedMessage.getId()));
         Assertions.assertNotNull(attachments);
         Assertions
                 .assertTrue(attachments.getAttachments() == null || attachments.getAttachments().isEmpty());
+                
+        DeletedMessages message =
+        getMailinatorClient().request(new DeleteMessageRequest(domain, inbox, postedMessage.getId()));
     }
 }

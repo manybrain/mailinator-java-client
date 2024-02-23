@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
@@ -21,7 +22,7 @@ public class GetInboxRequest
         implements Request<Inbox>
 {
 
-    private static final String URL = "https://api.mailinator.com/v2/domains/{domain}/inboxes/{inbox}";
+    private static final String URL = BASE_URL + "/domains/{domain}/inboxes/{inbox}";
 
     private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

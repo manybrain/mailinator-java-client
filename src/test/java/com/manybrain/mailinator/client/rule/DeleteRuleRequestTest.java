@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
 
+import com.manybrain.mailinator.client.ResponseStatus;
 import com.manybrain.mailinator.client.domain.Domain;
 
 import static com.manybrain.mailinator.client.TestEnv.ENV_API_TOKEN;
@@ -25,7 +26,7 @@ class DeleteRuleRequestTest {
 
 		Rule rule = createNewRule();
 
-		ResponseStatus responseStatus = getMailinatorClient().request(new DeleteRuleRequest(domain.getId(), rule.getId()));
+		ResponseStatus responseStatus = getMailinatorClient().request(new DeleteRuleRequest(domain.getName(), rule.getId()));
 		assertNotNull(responseStatus);
 	}
 }

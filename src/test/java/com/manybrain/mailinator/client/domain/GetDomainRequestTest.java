@@ -19,7 +19,7 @@ class GetDomainRequestTest
     {
         Domain availableDomain = TestUtils.getFirstAvailableDomain();
 
-        Domain domain = getMailinatorClient().request(new GetDomainRequest(availableDomain.getId()));
+        Domain domain = getMailinatorClient().request(new GetDomainRequest(availableDomain.getName()));
         Assertions.assertNotNull(domain);
     }
 }

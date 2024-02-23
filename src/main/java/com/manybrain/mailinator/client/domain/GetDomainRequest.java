@@ -1,5 +1,6 @@
 package com.manybrain.mailinator.client.domain;
 
+import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
@@ -12,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GetDomainRequest implements Request<Domain> {
 
-  private static final String URL = "https://api.mailinator.com/v2/domains/{domain_id}";
+  private static final String URL = BASE_URL + "/domains/{domain_id}";
 
   private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 
