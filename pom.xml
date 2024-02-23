@@ -4,7 +4,7 @@
 
 	<groupId>com.manybrain</groupId>
 	<artifactId>mailinator-client</artifactId>
-	<version>1.7</version>
+	<version>1.7-SNAPSHOT</version>
 
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>https://www.mailinator.com/ Java client</description>
