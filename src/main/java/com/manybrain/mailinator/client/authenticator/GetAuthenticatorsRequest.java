@@ -2,9 +2,9 @@ package com.manybrain.mailinator.client.authenticator;
 
 import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
-import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
+import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
 import com.manybrain.mailinator.client.Request;
 import lombok.RequiredArgsConstructor;
 

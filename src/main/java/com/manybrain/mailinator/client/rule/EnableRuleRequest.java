@@ -3,9 +3,9 @@ package com.manybrain.mailinator.client.rule;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
 
 import com.manybrain.mailinator.client.Request;
 import com.manybrain.mailinator.client.ResponseStatus;
@@ -13,7 +13,7 @@ import com.manybrain.mailinator.client.ResponseStatus;
 import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
-import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
+import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 @RequiredArgsConstructor
 public class EnableRuleRequest implements Request<ResponseStatus> {
