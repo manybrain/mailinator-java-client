@@ -3,9 +3,9 @@ package com.manybrain.mailinator.client.webhook;
 import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
 import com.manybrain.mailinator.client.RequestWithoutApiToken;
 
 import lombok.NonNull;
