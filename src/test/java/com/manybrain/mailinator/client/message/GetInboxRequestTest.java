@@ -77,4 +77,79 @@ class GetInboxRequestTest
                                .build());
         Assertions.assertNotNull(inbox);
     }
+
+    @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
+    })
+    void testInboxRequestWithPrivateDomainWithCursorQueryParams()
+    {
+        String domain = getPrivateDomain();
+        Inbox inbox1 = getMailinatorClient().request(
+                GetInboxRequest.builder()
+                               .domain(domain)
+                               .limit(1)
+                               .build());
+        Assertions.assertNotNull(inbox1);
+
+        Inbox inbox2 = getMailinatorClient().request(
+                GetInboxRequest.builder()
+                               .domain(domain)
+                               .limit(1)
+                               .cursor(inbox1.getCursor())
+                               .build());
+        Assertions.assertNotNull(inbox2);
+    }
+
+    @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
+    })
+    void testInboxRequestWithPrivateDomainWithFullQueryParams()
+    {
+        String domain = getPrivateDomain();
+        Inbox inbox = getMailinatorClient().request(
+                GetInboxRequest.builder()
+                               .domain(domain)
+                               .full(true)
+                               .limit(1)
+                               .build());
+        Assertions.assertNotNull(inbox);
+    }
+
+    @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
+    })
+    void testInboxRequestWithPrivateDomainWithDeleteQueryParams()
+    {
+        String domain = getPrivateDomain();
+        Inbox inbox = getMailinatorClient().request(
+                GetInboxRequest.builder()
+                               .domain(domain)
+                               .limit(1)
+                               .delete("1m")
+                               .build());
+        Assertions.assertNotNull(inbox);
+    }
+
+    @Test
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
+    })
+    void testInboxRequestWithPrivateDomainWithWaitQueryParams()
+    {
+        String domain = getPrivateDomain();
+        Inbox inbox = getMailinatorClient().request(
+                GetInboxRequest.builder()
+                               .domain(domain)
+                               .limit(1)
+                               .wait("1m")
+                               .build());
+        Assertions.assertNotNull(inbox);
+    }
 }

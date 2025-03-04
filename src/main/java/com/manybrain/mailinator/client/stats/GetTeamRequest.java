@@ -5,12 +5,13 @@ import jakarta.ws.rs.core.MediaType;
 
 import com.manybrain.mailinator.client.Request;
 
+import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 public class GetTeamRequest implements Request<Team> {
 
-	private static final String URL = "https://api.mailinator.com/v2/team";
+	private static final String URL = BASE_URL + "/team";
 
 	private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

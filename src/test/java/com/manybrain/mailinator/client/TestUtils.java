@@ -34,7 +34,7 @@ public class TestUtils {
 											String inbox) {
 		String random = UUID.randomUUID()
 							.toString();
-		MessageToPost message = new MessageToPost("raul", "testPostMessageRequest " + random, "text " + random);
+		MessageToPost message = new MessageToPost("Java SDK", "TestPostMessageRequest " + random, "text " + random);
 
 		PostedMessage postedMessage = getMailinatorClient().request(new PostMessageRequest(domain, inbox, message));
 		Assertions.assertNotNull(postedMessage);

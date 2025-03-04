@@ -9,16 +9,16 @@ import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
-public class GetStatsRequest implements Request<Stats> {
+public class GetTeamInfoRequest implements Request<TeamInfo> {
 
-	private static final String URL = BASE_URL + "/team/stats";
+	private static final String URL = BASE_URL + "/teaminfo";
 
 	private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 
-	public Stats execute(String apiToken) {
+	public TeamInfo execute(String apiToken) {
 		return WEB_TARGET.request(MediaType.APPLICATION_JSON_TYPE)
 						 .header(AUTHORIZATION, apiToken)
-						 .get(Stats.class);
+						 .get(TeamInfo.class);
 	}
 
 }

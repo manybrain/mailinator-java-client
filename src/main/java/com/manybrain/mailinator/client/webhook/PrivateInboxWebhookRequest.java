@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PrivateInboxWebhookRequest implements RequestWithoutApiToken<PrivateWebhookResponse> {
 
-  private static final String URL = BASE_URL + "/domains/{wh-token}/webhook/{inbox}";
+  private static final String URL = BASE_URL + "/domains/private/webhook/{inbox}";
 
   private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 
@@ -30,6 +30,11 @@ public class PrivateInboxWebhookRequest implements RequestWithoutApiToken<Privat
     WebTarget webTarget = WEB_TARGET.resolveTemplate("wh-token", emptyIfNull(webhookToken))
                                     .resolveTemplate("inbox", emptyIfNull(inbox));
 
+    if (webhookToken != null)
+    {
+        webTarget = webTarget.queryParam("whtoken", webhookToken);
+    }
+                          
     return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
         .post(Entity.json(webhook), PrivateWebhookResponse.class);
   }

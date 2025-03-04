@@ -1,7 +1,4 @@
-
 package com.manybrain.mailinator.client.message;
-
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,16 +8,11 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Inbox
+public class LinkEntity
 {
-
-    @JsonProperty("domain")
-    private String domain;
-    @JsonProperty("to")
-    private String to;
-    @JsonProperty("msgs")
-    private List<Message> msgs;
-    @JsonProperty("cursor")
-    private String cursor;
-
+    @JsonProperty("link")
+    private String link;
+    @JsonProperty("text")
+    private String text;
+    
 }

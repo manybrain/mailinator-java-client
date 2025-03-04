@@ -39,6 +39,14 @@ public class GetInboxRequest
 
     private Boolean decodeSubject;
 
+    private String cursor;
+    
+    private Boolean full;
+    
+    private String delete;
+    
+    private String wait;
+
     public Inbox execute(String apiToken)
     {
         WebTarget webTarget = WEB_TARGET.resolveTemplate("domain", emptyIfNull(domain))
@@ -59,6 +67,22 @@ public class GetInboxRequest
         if (decodeSubject != null)
         {
             webTarget = webTarget.queryParam("decode_subject", decodeSubject);
+        }
+        if (cursor != null)
+        {
+            webTarget = webTarget.queryParam("cursor", cursor);
+        }
+        if (full != null && full)
+        {
+            webTarget = webTarget.queryParam("full", full);
+        }
+        if (delete != null)
+        {
+            webTarget = webTarget.queryParam("delete", delete);
+        }
+        if (wait != null)
+        {
+            webTarget = webTarget.queryParam("wait", wait);
         }
 
         return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
