@@ -33,7 +33,7 @@ public class JerseyClient
     };
 
     public static final Client CLIENT = ClientBuilder.newClient()
-                                                     .property(ClientProperties.READ_TIMEOUT, (int) TimeUnit.SECONDS.toMillis(65)) // Set read timeout to 65 sec
+                                                     .property(ClientProperties.READ_TIMEOUT, (int) TimeUnit.SECONDS.toMillis(125)) // Set read timeout to 65 sec
                                                      .register(new LoggingFeature(Logger.getLogger(
                                                              JerseyClient.class.getPackage().getName()),
                                                                                   Level.SEVERE,
