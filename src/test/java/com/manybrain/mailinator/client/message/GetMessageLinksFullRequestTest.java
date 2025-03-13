@@ -21,11 +21,11 @@ class GetMessageLinksFullRequestTest
 {
 
     @Test
-//     @EnabledIfEnvironmentVariables({
-//             @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
-//             @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+"),
-//             @EnabledIfEnvironmentVariable(named = ENV_INBOX_TEST, matches = "[^\\s]+")
-//     })
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_INBOX_TEST, matches = "[^\\s]+")
+    })
     void testGetLinksFullRequest()
     {
         String domain = getPrivateDomain();
@@ -41,10 +41,10 @@ class GetMessageLinksFullRequestTest
     }
 
     @Test
-//     @EnabledIfEnvironmentVariables({
-//             @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
-//             @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
-//     })
+    @EnabledIfEnvironmentVariables({
+            @EnabledIfEnvironmentVariable(named = ENV_API_TOKEN, matches = "[^\\s]+"),
+            @EnabledIfEnvironmentVariable(named = ENV_DOMAIN_PRIVATE, matches = "[^\\s]+")
+    })
     void testGetMessageLinksFullRequestWhenMessageDoesNotExist()
     {
         String domain = getPrivateDomain();
