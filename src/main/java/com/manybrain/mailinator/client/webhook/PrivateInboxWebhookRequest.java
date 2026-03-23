@@ -28,8 +28,7 @@ public class PrivateInboxWebhookRequest implements RequestWithoutApiToken<Privat
 
   @Override
   public PrivateWebhookResponse execute() {
-    WebTarget webTarget = WEB_TARGET.resolveTemplate("wh-token", emptyIfNull(webhookToken))
-                                    .resolveTemplate("inbox", emptyIfNull(inbox));
+    WebTarget webTarget = WEB_TARGET.resolveTemplate("inbox", emptyIfNull(inbox));
 
     if (webhookToken != null)
     {

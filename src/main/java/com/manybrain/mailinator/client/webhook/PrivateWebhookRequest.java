@@ -27,7 +27,7 @@ public class PrivateWebhookRequest implements RequestWithoutApiToken<PrivateWebh
 
   @Override
   public PrivateWebhookResponse execute() {
-    WebTarget webTarget = WEB_TARGET.resolveTemplate("wh-token", emptyIfNull(webhookToken));
+    WebTarget webTarget = WEB_TARGET;
 
     if (webhookToken != null)
     {

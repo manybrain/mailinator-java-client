@@ -29,8 +29,7 @@ public class PrivateCustomServiceInboxWebhookRequest implements RequestWithoutAp
 
   @Override
   public String execute() {
-    WebTarget webTarget = WEB_TARGET.resolveTemplate("wh-token", emptyIfNull(webhookToken))
-                                    .resolveTemplate("customService", emptyIfNull(customService))
+    WebTarget webTarget = WEB_TARGET.resolveTemplate("customService", emptyIfNull(customService))
                                     .resolveTemplate("inbox", emptyIfNull(inbox));
 
     if (webhookToken != null)

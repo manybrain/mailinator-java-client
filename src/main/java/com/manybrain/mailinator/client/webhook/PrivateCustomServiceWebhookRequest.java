@@ -27,8 +27,7 @@ public class PrivateCustomServiceWebhookRequest implements RequestWithoutApiToke
 
   @Override
   public String execute() {
-    WebTarget webTarget = WEB_TARGET.resolveTemplate("wh-token", emptyIfNull(webhookToken))
-                                    .resolveTemplate("customService", emptyIfNull(customService));
+    WebTarget webTarget = WEB_TARGET.resolveTemplate("customService", emptyIfNull(customService));
 
     if (webhookToken != null)
     {
