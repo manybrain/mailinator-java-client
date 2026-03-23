@@ -14,6 +14,11 @@ import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
+/**
+ * @deprecated This endpoint is not present in the current OpenAPI specification and is known to return server errors.
+ * Use {@link GetInboxRequest} instead.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class GetLatestMessagesRequest
         implements Request<Inbox>

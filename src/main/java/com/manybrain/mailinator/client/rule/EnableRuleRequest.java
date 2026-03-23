@@ -16,6 +16,10 @@ import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
+/**
+ * @deprecated Rules management endpoints have been deprecated and will be removed in a future release.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class EnableRuleRequest implements Request<ResponseStatus> {
 

@@ -11,6 +11,11 @@ import com.manybrain.mailinator.client.Request;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * @deprecated This endpoint is not present in the current OpenAPI specification and may be removed in a future release.
+ * Use {@link GetAuthenticatorsByIdRequest} instead.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class GetAuthenticatorByIdRequest implements Request<Authenticator> {
 

@@ -18,7 +18,7 @@ public class JerseyClient
 {
 
     public static final String BASE_URL = "https://api.mailinator.com/api/v2";
-    public static final String USER_AGENT = "Mailinator SDK - Java V2.2";
+    public static final String USER_AGENT = "Mailinator SDK - Java V2.4";
 
     private static final ClientRequestFilter USER_AGENT_FILTER = requestContext -> {
         requestContext.getHeaders().add("User-Agent", USER_AGENT);

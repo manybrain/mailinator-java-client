@@ -10,7 +10,7 @@ import com.manybrain.mailinator.client.Request;
 
 public class GetDomainsRequest implements Request<Domains> {
 
-  private static final String URL = BASE_URL + "/domains/";
+  private static final String URL = BASE_URL + "/domains";
 
   private static final WebTarget WEB_TARGET = CLIENT.target(URL);
 

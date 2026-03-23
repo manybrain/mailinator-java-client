@@ -9,6 +9,10 @@ import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * @deprecated This endpoint is not present in the current OpenAPI specification and may be removed in a future release.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class GetAuthenticatorsRequest implements Request<GetAuthenticatorsResponse> {
 

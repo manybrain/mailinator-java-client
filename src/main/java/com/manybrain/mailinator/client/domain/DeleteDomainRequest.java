@@ -13,6 +13,10 @@ import com.manybrain.mailinator.client.ResponseStatus;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * @deprecated Domain deletion via the SDK has been deprecated. Use the Mailinator web UI instead.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class DeleteDomainRequest implements Request<ResponseStatus> {
 

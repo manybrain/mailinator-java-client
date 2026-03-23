@@ -10,6 +10,11 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * @deprecated This endpoint is not present in the current OpenAPI specification and may be removed in a future release.
+ * Use {@link GetAuthenticatorsByIdRequest} for authenticator lookup by ID.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class GetAuthenticatorRequest implements Request<GetAuthenticatorsResponse> {
 
