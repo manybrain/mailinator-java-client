@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.5.0] - 2026-03-23
+
+### Added
+
+- `GetMessageSummaryRequest` + `MessageSummaryResponse` / `MessageSummary`: fetch a message summary (`GET /api/v2/domains/{domain}/messages/{id}/summary`).
+- `GetMessageTextRequest` + `MessageTextResponse`: fetch the text body of a message (`GET /api/v2/domains/{domain}/messages/{id}/text`).
+- `GetMessageTextPlainRequest`: fetch the plain-text variant of a message body (`GET /api/v2/domains/{domain}/messages/{id}/textplain`), returns raw `JSONObject`.
+- `GetMessageTextHtmlRequest`: fetch the HTML variant of a message body (`GET /api/v2/domains/{domain}/messages/{id}/texthtml`), returns raw `JSONObject`.
+- `GetMessageHeadersRequest` + `MessageHeadersResponse`: fetch all message headers (`GET /api/v2/domains/{domain}/messages/{id}/headers`).
+- `GetStreamDomainMessagesRequest`: long-poll stream for the next message arriving in any inbox of a domain (`GET /api/v2/domains/{domain}/stream`). Pings are transparently skipped; result is returned as an `Inbox`.
+- `GetStreamInboxMessagesRequest`: long-poll stream for the next message arriving in a specific inbox (`GET /api/v2/domains/{domain}/stream/{inbox}`).
+- New integration tests for all seven request classes above, gated on `MAILINATOR_TEST_REAL_MESSAGE_ID` (or existing env vars where applicable).
+- `MAILINATOR_TEST_REAL_MESSAGE_ID` constant added to `TestEnv`.
+- Test resilience for plan-limited features: stream tests gated on MAILINATOR_TEST_ENABLE_STREAM, attachment/text/headers/summary tests skip gracefully on HTTP 500, delete/wait params skip if not honored.
+
+### Fixed
+
+- `GetInboxRequest`: when `inbox` is `null`, the URL template now resolves to `*` (i.e. `/inboxes/*`) instead of an empty path segment, matching the Mailinator wildcard-inbox convention.
+- `User-Agent` header version is now derived automatically from the POM version via Maven resource filtering — the string `Mailinator SDK - Java V{version}` is resolved at build time, so no manual update is required on each release.
+
+### Changed
+
+- Deprecated test classes now carry `@Disabled` annotations with descriptive messages so they are skipped rather than executed: all six rule tests, `CreateDomainRequestTest`, `DeleteDomainRequestTest`, `GetAuthenticatorsRequestTest`, `GetAuthenticatorRequestTest`, `GetAuthenticatorByIdRequestTest`, `GetLatestMessagesRequestTest`, `GetLatestInboxMessagesRequestTest`.
+
+---
+
 ## [2.4.0] - 2026-03-23
 
 ### Deprecated

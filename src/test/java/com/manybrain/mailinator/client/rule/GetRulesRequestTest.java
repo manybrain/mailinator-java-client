@@ -1,5 +1,6 @@
 package com.manybrain.mailinator.client.rule;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
@@ -12,6 +13,7 @@ import static com.manybrain.mailinator.client.TestEnv.ENV_DOMAIN_RULES_LESS_THAN
 import static com.manybrain.mailinator.client.TestEnv.getMailinatorClient;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Disabled("Deprecated: GetRulesRequest is deprecated and will be removed in a future version")
 class GetRulesRequestTest {
 
 	@Test

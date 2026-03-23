@@ -18,7 +18,7 @@ class InstantTOTP2FACodeTest
     })
     void testInstantTOTP2FACodeRequest()
     {
-        InstantTOTP2FACodeResponse response = getMailinatorClient().request(new InstantTOTP2FACodeRequest(ENV_AUTH_SECRET));
+        InstantTOTP2FACodeResponse response = getMailinatorClient().request(new InstantTOTP2FACodeRequest(System.getenv(ENV_AUTH_SECRET)));
         Assertions.assertNotNull(response);
     }
 }

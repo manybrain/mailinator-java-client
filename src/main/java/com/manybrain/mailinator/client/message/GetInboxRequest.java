@@ -51,7 +51,7 @@ public class GetInboxRequest
     public Inbox execute(String apiToken)
     {
         WebTarget webTarget = WEB_TARGET.resolveTemplate("domain", emptyIfNull(domain))
-                                        .resolveTemplate("inbox", emptyIfNull(inbox));
+                                        .resolveTemplate("inbox", inbox != null ? inbox : "*");
 
         if (skip != null)
         {
