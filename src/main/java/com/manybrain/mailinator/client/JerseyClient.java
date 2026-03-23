@@ -11,7 +11,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import org.glassfish.jersey.client.ClientProperties;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -20,20 +19,17 @@ public class JerseyClient
 
     public static final String BASE_URL = "https://api.mailinator.com/api/v2";
     public static final String USER_AGENT = "Mailinator SDK - Java V2.2";
-    
-    // Define a filter to set the User-Agent header
+
     private static final ClientRequestFilter USER_AGENT_FILTER = requestContext -> {
         requestContext.getHeaders().add("User-Agent", USER_AGENT);
     };
 
     public static final Client CLIENT = ClientBuilder.newClient()
-                                                     .property(ClientProperties.READ_TIMEOUT, (int) TimeUnit.SECONDS.toMillis(125)) // Set read timeout to 65 sec
+                                                     .property(ClientProperties.READ_TIMEOUT, (int) TimeUnit.SECONDS.toMillis(125))
                                                      .register(new LoggingFeature(Logger.getLogger(
                                                              JerseyClient.class.getPackage().getName()),
                                                                                   Level.SEVERE,
                                                                                   null,
                                                                                   null))
-                                                     .register(new JacksonFeature())
-                                                     .register(new JacksonObjectMapperProvider())
                                                      .register(USER_AGENT_FILTER);
 }

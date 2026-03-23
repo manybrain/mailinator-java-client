@@ -1,53 +1,56 @@
 package com.manybrain.mailinator.client.message;
 
+import com.manybrain.mailinator.client.JsonUtils;
+import lombok.Data;
+import org.json.simple.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Message
 {
-    @JsonProperty("is_first_exchange")
     private Boolean isFirstExchange;
-    @JsonProperty("fromfull")
     private String fromfull;
-    @JsonProperty("headers")
     private Map<String, Object> headers;
-    @JsonProperty("subject")
     private String subject;
-    @JsonProperty("parts")
     private List<Part> parts;
-    @JsonProperty("from")
     private String from;
-    @JsonProperty("to")
     private String to;
-    @JsonProperty("id")
     private String id;
-    @JsonProperty("time")
     private Long time;
-    @JsonProperty("seconds_ago")
     private Long secondsAgo;
-    @JsonProperty("domain")
     private String domain;
-    @JsonProperty("origfrom")
     private String origfrom;
-    @JsonProperty("mrid")
     private String mrid;
-    @JsonProperty("size")
     private Integer size;
-    @JsonProperty("stream")
     private String stream;
-    @JsonProperty("msg_type")
     private String msgType;
-    @JsonProperty("source")
     private String source;
-    @JsonProperty("text")
     private String text;
 
+    @SuppressWarnings("unchecked")
+    public static Message fromJson(JSONObject json) {
+        if (json == null) return null;
+        Message m = new Message();
+        m.isFirstExchange = JsonUtils.getBoolean(json, "is_first_exchange");
+        m.fromfull = JsonUtils.getString(json, "fromfull");
+        m.headers = (JSONObject) json.get("headers");
+        m.subject = JsonUtils.getString(json, "subject");
+        m.parts = JsonUtils.getList(json, "parts", Part::fromJson);
+        m.from = JsonUtils.getString(json, "from");
+        m.to = JsonUtils.getString(json, "to");
+        m.id = JsonUtils.getString(json, "id");
+        m.time = JsonUtils.getLong(json, "time");
+        m.secondsAgo = JsonUtils.getLong(json, "seconds_ago");
+        m.domain = JsonUtils.getString(json, "domain");
+        m.origfrom = JsonUtils.getString(json, "origfrom");
+        m.mrid = JsonUtils.getString(json, "mrid");
+        m.size = JsonUtils.getInteger(json, "size");
+        m.stream = JsonUtils.getString(json, "stream");
+        m.msgType = JsonUtils.getString(json, "msg_type");
+        m.source = JsonUtils.getString(json, "source");
+        m.text = JsonUtils.getString(json, "text");
+        return m;
+    }
 }

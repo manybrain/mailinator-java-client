@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 
 import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
@@ -29,9 +30,10 @@ public class GetLatestMessagesRequest
     {
         WebTarget webTarget = WEB_TARGET.resolveTemplate("domain", emptyIfNull(domain));
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)
-                        .get(Inbox.class);
+                        .get(String.class);
+        return Inbox.fromJson(JsonUtils.parseObject(response));
     }
 
 

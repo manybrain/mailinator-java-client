@@ -1,18 +1,19 @@
 package com.manybrain.mailinator.client.stats;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
+import org.json.simple.JSONObject;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Stats{
+public class Stats {
+    private List<StatsItem> stats;
 
-	@JsonProperty("stats")
-	private List<StatsItem> stats;
+    public static Stats fromJson(JSONObject json) {
+        if (json == null) return null;
+        Stats s = new Stats();
+        s.stats = JsonUtils.getList(json, "stats", StatsItem::fromJson);
+        return s;
+    }
 }

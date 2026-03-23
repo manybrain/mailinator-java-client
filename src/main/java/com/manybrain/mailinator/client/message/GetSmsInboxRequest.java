@@ -3,6 +3,7 @@ package com.manybrain.mailinator.client.message;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 
 import lombok.NonNull;
@@ -33,9 +34,10 @@ public class GetSmsInboxRequest
         WebTarget webTarget = WEB_TARGET.resolveTemplate("domain", emptyIfNull(domain))
                                         .resolveTemplate("phoneNumber", emptyIfNull(phoneNumber));
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)
-                        .get(Inbox.class);
+                        .get(String.class);
+        return Inbox.fromJson(JsonUtils.parseObject(response));
     }
 
 

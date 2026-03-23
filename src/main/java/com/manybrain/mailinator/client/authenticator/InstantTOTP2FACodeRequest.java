@@ -6,6 +6,7 @@ import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,9 @@ public class InstantTOTP2FACodeRequest implements Request<InstantTOTP2FACodeResp
   public InstantTOTP2FACodeResponse execute(String apiToken) {
     WebTarget webTarget = WEB_TARGET.resolveTemplate("totp_secret_key", emptyIfNull(TotpSecretKey));
 
-    return webTarget.request(MediaType.APPLICATION_JSON_TYPE).header(AUTHORIZATION, apiToken)
-        .get(InstantTOTP2FACodeResponse.class);
+    String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE).header(AUTHORIZATION, apiToken)
+        .get(String.class);
+    return InstantTOTP2FACodeResponse.fromJson(JsonUtils.parseObject(response));
   }
 
 }

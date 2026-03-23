@@ -3,6 +3,7 @@ package com.manybrain.mailinator.client.webhook;
 import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
 import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.RequestWithoutApiToken;
 
 import jakarta.ws.rs.client.Entity;
@@ -35,8 +36,9 @@ public class PrivateInboxWebhookRequest implements RequestWithoutApiToken<Privat
         webTarget = webTarget.queryParam("whtoken", webhookToken);
     }
                           
-    return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
-        .post(Entity.json(webhook), PrivateWebhookResponse.class);
+    String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        .post(Entity.entity(webhook.toJSON().toJSONString(), MediaType.APPLICATION_JSON_TYPE), String.class);
+    return PrivateWebhookResponse.fromJson(JsonUtils.parseObject(response));
   }
 
 }

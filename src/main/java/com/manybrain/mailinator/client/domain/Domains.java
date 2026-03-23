@@ -1,16 +1,20 @@
 package com.manybrain.mailinator.client.domain;
 
+import com.manybrain.mailinator.client.JsonUtils;
+import lombok.Data;
+import org.json.simple.JSONObject;
+
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Domains
 {
-
-    @JsonProperty("domains")
     private List<Domain> domains;
+
+    public static Domains fromJson(JSONObject json) {
+        if (json == null) return null;
+        Domains d = new Domains();
+        d.domains = JsonUtils.getList(json, "domains", Domain::fromJson);
+        return d;
+    }
 }

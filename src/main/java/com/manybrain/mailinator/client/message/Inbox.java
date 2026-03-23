@@ -1,26 +1,26 @@
-
 package com.manybrain.mailinator.client.message;
+
+import com.manybrain.mailinator.client.JsonUtils;
+import lombok.Data;
+import org.json.simple.JSONObject;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Inbox
 {
-
-    @JsonProperty("domain")
     private String domain;
-    @JsonProperty("to")
     private String to;
-    @JsonProperty("msgs")
     private List<Message> msgs;
-    @JsonProperty("cursor")
     private String cursor;
 
+    public static Inbox fromJson(JSONObject json) {
+        if (json == null) return null;
+        Inbox i = new Inbox();
+        i.domain = JsonUtils.getString(json, "domain");
+        i.to = JsonUtils.getString(json, "to");
+        i.msgs = JsonUtils.getList(json, "msgs", Message::fromJson);
+        i.cursor = JsonUtils.getString(json, "cursor");
+        return i;
+    }
 }

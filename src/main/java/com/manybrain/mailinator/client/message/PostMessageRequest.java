@@ -7,6 +7,7 @@ import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,9 @@ public class PostMessageRequest implements Request<PostedMessage> {
     WebTarget webTarget = WEB_TARGET.resolveTemplate("domain", emptyIfNull(domain))
         .resolveTemplate("inbox", emptyIfNull(inbox));
 
-    return webTarget.request(MediaType.APPLICATION_JSON_TYPE).header(AUTHORIZATION, apiToken)
-        .post(Entity.json(message), PostedMessage.class);
+    String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE).header(AUTHORIZATION, apiToken)
+        .post(Entity.entity(message.toJSON().toJSONString(), MediaType.APPLICATION_JSON_TYPE), String.class);
+    return PostedMessage.fromJson(JsonUtils.parseObject(response));
   }
 
 

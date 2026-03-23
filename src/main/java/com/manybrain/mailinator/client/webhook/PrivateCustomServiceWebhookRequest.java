@@ -36,7 +36,7 @@ public class PrivateCustomServiceWebhookRequest implements RequestWithoutApiToke
     }
     
     return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
-        .post(Entity.json(webhook), String.class);
+        .post(Entity.entity(webhook.toJSON().toJSONString(), MediaType.APPLICATION_JSON_TYPE), String.class);
   }
 
 }

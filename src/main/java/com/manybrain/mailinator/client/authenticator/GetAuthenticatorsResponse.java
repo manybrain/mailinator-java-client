@@ -1,15 +1,19 @@
 package com.manybrain.mailinator.client.authenticator;
 
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
+import org.json.simple.JSONObject;
+
+import java.util.List;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GetAuthenticatorsResponse {
+    private List<Authenticator> passcodes;
 
-  @JsonProperty("passcodes")
-  private List<Authenticator> Passcodes;
-
+    public static GetAuthenticatorsResponse fromJson(JSONObject json) {
+        if (json == null) return null;
+        GetAuthenticatorsResponse r = new GetAuthenticatorsResponse();
+        r.passcodes = JsonUtils.getList(json, "passcodes", Authenticator::fromJson);
+        return r;
+    }
 }

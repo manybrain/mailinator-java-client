@@ -1,23 +1,26 @@
 package com.manybrain.mailinator.client.message;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
+import org.json.simple.JSONObject;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Attachment
 {
-
-    @JsonProperty("filename")
     private String filename;
-    @JsonProperty("content-disposition")
     private String contentDisposition;
-    @JsonProperty("content-transfer-encoding")
     private String contentTransferEncoding;
-    @JsonProperty("content-type")
     private String contentType;
-    @JsonProperty("attachment-id")
     private Integer attachmentId;
 
+    public static Attachment fromJson(JSONObject json) {
+        if (json == null) return null;
+        Attachment a = new Attachment();
+        a.filename = JsonUtils.getString(json, "filename");
+        a.contentDisposition = JsonUtils.getString(json, "content-disposition");
+        a.contentTransferEncoding = JsonUtils.getString(json, "content-transfer-encoding");
+        a.contentType = JsonUtils.getString(json, "content-type");
+        a.attachmentId = JsonUtils.getInteger(json, "attachment-id");
+        return a;
+    }
 }

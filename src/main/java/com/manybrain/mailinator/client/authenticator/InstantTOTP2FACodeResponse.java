@@ -1,21 +1,25 @@
 package com.manybrain.mailinator.client.authenticator;
 
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
+import org.json.simple.JSONObject;
+
+import java.util.List;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class InstantTOTP2FACodeResponse {
+    private Integer timeStep;
+    private List<String> futureCodes;
+    private Integer nextResetSeconds;
+    private String passcode;
 
-  @JsonProperty("time_step")
-  private Integer TimeStep;
-  @JsonProperty("futurecodes")
-  private List<String> FutureCodes;
-  @JsonProperty("next_reset_secs")
-  private Integer NextResetSeconds;
-  @JsonProperty("passcode")
-  private String Passcode;
-
+    public static InstantTOTP2FACodeResponse fromJson(JSONObject json) {
+        if (json == null) return null;
+        InstantTOTP2FACodeResponse r = new InstantTOTP2FACodeResponse();
+        r.timeStep = JsonUtils.getInteger(json, "time_step");
+        r.futureCodes = JsonUtils.getStringList(json, "futurecodes");
+        r.nextResetSeconds = JsonUtils.getInteger(json, "next_reset_secs");
+        r.passcode = JsonUtils.getString(json, "passcode");
+        return r;
+    }
 }

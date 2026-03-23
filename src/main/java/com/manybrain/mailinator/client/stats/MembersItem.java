@@ -1,22 +1,21 @@
 package com.manybrain.mailinator.client.stats;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.simple.JSONObject;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class MembersItem{
+public class MembersItem {
+    private String role;
+    private String id;
+    private String email;
 
-	@JsonProperty("role")
-	private String role;
-
-	@JsonProperty("_id")
-	private String id;
-
-	@JsonProperty("email")
-	private String email;
+    public static MembersItem fromJson(JSONObject json) {
+        if (json == null) return null;
+        MembersItem m = new MembersItem();
+        m.role = JsonUtils.getString(json, "role");
+        m.id = JsonUtils.getString(json, "_id");
+        m.email = JsonUtils.getString(json, "email");
+        return m;
+    }
 }

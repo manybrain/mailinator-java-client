@@ -4,6 +4,7 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 
 import lombok.NonNull;
@@ -32,9 +33,10 @@ public class CreateRuleRequest
     {
         WebTarget webTarget = WEB_TARGET.resolveTemplate("domain_id", emptyIfNull(domainId));
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)
-                        .post(Entity.json(rule), Rule.class);
+                        .post(Entity.entity(rule.toJSON().toJSONString(), MediaType.APPLICATION_JSON_TYPE), String.class);
+        return Rule.fromJson(JsonUtils.parseObject(response));
     }
 
 

@@ -3,6 +3,7 @@ package com.manybrain.mailinator.client.message;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 
 import lombok.NonNull;
@@ -32,9 +33,10 @@ public class GetMessageAttachmentsRequest
         WebTarget webTarget = WEB_TARGET.resolveTemplate("domain", emptyIfNull(domain))
                                         .resolveTemplate("message_id", emptyIfNull(messageId));
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)
-                        .get(Attachments.class);
+                        .get(String.class);
+        return Attachments.fromJson(JsonUtils.parseObject(response));
     }
 
 

@@ -3,6 +3,7 @@ package com.manybrain.mailinator.client.rule;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 import com.manybrain.mailinator.client.ResponseStatus;
 
@@ -34,9 +35,10 @@ public class DeleteRuleRequest
                                       .resolveTemplate("domain_id", emptyIfNull(domainId))
                                       .resolveTemplate("rule_id", emptyIfNull(ruleId));
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)
-                        .delete(ResponseStatus.class);
+                        .delete(String.class);
+        return ResponseStatus.fromJson(JsonUtils.parseObject(response));
     }
 
 

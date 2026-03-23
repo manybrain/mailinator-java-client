@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 
 import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
@@ -26,9 +27,10 @@ public class GetRulesRequest implements Request<Rules> {
 	public Rules execute(String apiToken) {
 		WebTarget webTarget = WEB_TARGET.resolveTemplate("domain_id", emptyIfNull(domainId));
 
-		return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
-						.header(AUTHORIZATION, apiToken)
-						.get(Rules.class);
+String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+								.header(AUTHORIZATION, apiToken)
+								.get(String.class);
+		return Rules.fromJson(JsonUtils.parseObject(response));
 	}
 
 }

@@ -3,6 +3,7 @@ package com.manybrain.mailinator.client.message;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 
 import lombok.AllArgsConstructor;
@@ -43,9 +44,10 @@ public class GetMessageRequest
             webTarget = webTarget.queryParam("delete", delete);
         }
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)
-                        .get(Message.class);
+                        .get(String.class);
+        return Message.fromJson(JsonUtils.parseObject(response));
     }
 
 
