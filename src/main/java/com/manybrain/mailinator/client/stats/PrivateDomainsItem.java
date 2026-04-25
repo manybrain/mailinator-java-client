@@ -1,19 +1,19 @@
 package com.manybrain.mailinator.client.stats;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.simple.JSONObject;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class PrivateDomainsItem{
+public class PrivateDomainsItem {
+    private String pd;
+    private Boolean enabled;
 
-	@JsonProperty("pd")
-	private String pd;
-
-	@JsonProperty("enabled")
-	private Boolean enabled;
+    public static PrivateDomainsItem fromJson(JSONObject json) {
+        if (json == null) return null;
+        PrivateDomainsItem p = new PrivateDomainsItem();
+        p.pd = JsonUtils.getString(json, "pd");
+        p.enabled = JsonUtils.getBoolean(json, "enabled");
+        return p;
+    }
 }

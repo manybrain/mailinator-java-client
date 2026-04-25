@@ -7,12 +7,17 @@ import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 import com.manybrain.mailinator.client.ResponseStatus;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * @deprecated Domain creation via the SDK has been deprecated. Use the Mailinator web UI instead.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class CreateDomainRequest implements Request<ResponseStatus> {
 
@@ -27,9 +32,10 @@ public class CreateDomainRequest implements Request<ResponseStatus> {
   public ResponseStatus execute(String apiToken) {
     WebTarget webTarget = WEB_TARGET.resolveTemplate("domain_id", emptyIfNull(domainId));
     
-    return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+    String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                     .header(AUTHORIZATION, apiToken)
-                    .post(Entity.json(""), ResponseStatus.class);
+                    .post(Entity.json(""), String.class);
+    return ResponseStatus.fromJson(JsonUtils.parseObject(response));
   }
 
 }

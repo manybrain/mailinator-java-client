@@ -1,19 +1,23 @@
 package com.manybrain.mailinator.client.message;
 
+import com.manybrain.mailinator.client.JsonUtils;
+import lombok.Data;
+import org.json.simple.JSONObject;
+
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Part
 {
-
-    @JsonProperty("headers")
     private Map<String, Object> headers;
-    @JsonProperty("body")
     private String body;
 
+    @SuppressWarnings("unchecked")
+    public static Part fromJson(JSONObject json) {
+        if (json == null) return null;
+        Part p = new Part();
+        p.headers = (JSONObject) json.get("headers");
+        p.body = JsonUtils.getString(json, "body");
+        return p;
+    }
 }

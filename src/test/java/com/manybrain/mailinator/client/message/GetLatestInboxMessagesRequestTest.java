@@ -3,6 +3,7 @@ package com.manybrain.mailinator.client.message;
 import java.util.UUID;
 
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
@@ -17,6 +18,7 @@ import static com.manybrain.mailinator.client.TestUtils.postMessage;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Disabled("Deprecated: GetLatestInboxMessagesRequest is deprecated and will be removed in a future version")
 class GetLatestInboxMessagesRequestTest
 {
 

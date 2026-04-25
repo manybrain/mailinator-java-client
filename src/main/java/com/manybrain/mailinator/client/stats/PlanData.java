@@ -1,18 +1,23 @@
 package com.manybrain.mailinator.client.stats;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.manybrain.mailinator.client.JsonUtils;
+import lombok.Data;
+import org.json.simple.JSONObject;
 
-public class PlanData{
+@Data
+public class PlanData {
+    private Integer storageMb;
+    private Integer numPrivateDomains;
+    private Integer emailReadsPerDay;
+    private Integer teamAccounts;
 
-	@JsonProperty("storage_mb")
-	private Integer storageMb;
-
-	@JsonProperty("num_private_domains")
-	private Integer numPrivateDomains;
-
-	@JsonProperty("email_reads_per_day")
-	private Integer emailReadsPerDay;
-
-	@JsonProperty("team_accounts")
-	private Integer teamAccounts;
+    public static PlanData fromJson(JSONObject json) {
+        if (json == null) return null;
+        PlanData p = new PlanData();
+        p.storageMb = JsonUtils.getInteger(json, "storage_mb");
+        p.numPrivateDomains = JsonUtils.getInteger(json, "num_private_domains");
+        p.emailReadsPerDay = JsonUtils.getInteger(json, "email_reads_per_day");
+        p.teamAccounts = JsonUtils.getInteger(json, "team_accounts");
+        return p;
+    }
 }

@@ -1,19 +1,19 @@
 package com.manybrain.mailinator.client.stats;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.simple.JSONObject;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Sent{
+public class Sent {
+    private Integer sms;
+    private Integer email;
 
-	@JsonProperty("sms")
-	private Integer sms;
-
-	@JsonProperty("email")
-	private Integer email;
+    public static Sent fromJson(JSONObject json) {
+        if (json == null) return null;
+        Sent s = new Sent();
+        s.sms = JsonUtils.getInteger(json, "sms");
+        s.email = JsonUtils.getInteger(json, "email");
+        return s;
+    }
 }

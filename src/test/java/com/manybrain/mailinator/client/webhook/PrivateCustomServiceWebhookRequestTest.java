@@ -20,7 +20,7 @@ class PrivateCustomServiceWebhookRequestTest {
 	void testPrivateCustomServiceWebhookRequest() {
 		Webhook webhook = getWebhookToAdd();
 
-		String response = getMailinatorClientWithoutApiToken().request(new PrivateCustomServiceWebhookRequest(ENV_WEBHOOKTOKEN_CUSTOMSERVICE, ENV_WEBHOOK_CUSTOMSERVICE, webhook));
+		String response = getMailinatorClientWithoutApiToken().request(new PrivateCustomServiceWebhookRequest(System.getenv(ENV_WEBHOOKTOKEN_CUSTOMSERVICE), System.getenv(ENV_WEBHOOK_CUSTOMSERVICE), webhook));
 		// assertNotNull(responseStatus);
 	}
 

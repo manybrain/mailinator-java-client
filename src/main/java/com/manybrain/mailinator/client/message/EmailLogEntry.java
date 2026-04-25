@@ -1,21 +1,21 @@
 package com.manybrain.mailinator.client.message;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.simple.JSONObject;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class EmailLogEntry {
+    private String log;
+    private String time;
+    private String event;
 
-	@JsonProperty("log")
-	private String log;
-	@JsonProperty("time")
-	private String time;
-	@JsonProperty("event")
-	private String event;
-
+    public static EmailLogEntry fromJson(JSONObject json) {
+        if (json == null) return null;
+        EmailLogEntry e = new EmailLogEntry();
+        e.log = JsonUtils.getString(json, "log");
+        e.time = JsonUtils.getString(json, "time");
+        e.event = JsonUtils.getString(json, "event");
+        return e;
+    }
 }

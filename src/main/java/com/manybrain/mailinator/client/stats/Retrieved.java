@@ -1,25 +1,23 @@
 package com.manybrain.mailinator.client.stats;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.simple.JSONObject;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Retrieved{
+public class Retrieved {
+    private Integer webPublic;
+    private Integer apiError;
+    private Integer webPrivate;
+    private Integer apiEmail;
 
-	@JsonProperty("web_public")
-	private Integer webPublic;
-
-	@JsonProperty("api_error")
-	private Integer apiError;
-
-	@JsonProperty("web_private")
-	private Integer webPrivate;
-
-	@JsonProperty("api_email")
-	private Integer apiEmail;
+    public static Retrieved fromJson(JSONObject json) {
+        if (json == null) return null;
+        Retrieved r = new Retrieved();
+        r.webPublic = JsonUtils.getInteger(json, "web_public");
+        r.apiError = JsonUtils.getInteger(json, "api_error");
+        r.webPrivate = JsonUtils.getInteger(json, "web_private");
+        r.apiEmail = JsonUtils.getInteger(json, "api_email");
+        return r;
+    }
 }

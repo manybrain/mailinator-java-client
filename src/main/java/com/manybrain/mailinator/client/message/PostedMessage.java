@@ -1,23 +1,25 @@
 package com.manybrain.mailinator.client.message;
 
+import com.manybrain.mailinator.client.JsonUtils;
+import com.manybrain.mailinator.client.rule.Rule;
+import lombok.Data;
+import org.json.simple.JSONObject;
+
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.manybrain.mailinator.client.rule.Rule;
-
-import lombok.Data;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostedMessage
 {
-
-    @JsonProperty("status")
     private String status;
-    @JsonProperty("id")
     private String id;
-    @JsonProperty("rules_fired")
     private List<Rule> rulesFired;
 
+    public static PostedMessage fromJson(JSONObject json) {
+        if (json == null) return null;
+        PostedMessage p = new PostedMessage();
+        p.status = JsonUtils.getString(json, "status");
+        p.id = JsonUtils.getString(json, "id");
+        p.rulesFired = JsonUtils.getList(json, "rules_fired", Rule::fromJson);
+        return p;
+    }
 }

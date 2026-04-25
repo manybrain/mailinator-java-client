@@ -1,15 +1,17 @@
 package com.manybrain.mailinator.client;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.json.simple.JSONObject;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseStatus
 {
-
-    @JsonProperty("status")
     private String status;
 
+    public static ResponseStatus fromJson(JSONObject json) {
+        if (json == null) return null;
+        ResponseStatus r = new ResponseStatus();
+        r.status = JsonUtils.getString(json, "status");
+        return r;
+    }
 }

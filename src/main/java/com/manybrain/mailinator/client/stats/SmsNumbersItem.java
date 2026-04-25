@@ -1,22 +1,21 @@
 package com.manybrain.mailinator.client.stats;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.simple.JSONObject;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class SmsNumbersItem{
+public class SmsNumbersItem {
+    private String number;
+    private String country;
+    private String status;
 
-	@JsonProperty("number")
-	private String number;
-
-	@JsonProperty("country")
-	private String country;
-
-	@JsonProperty("status")
-	private String status;
+    public static SmsNumbersItem fromJson(JSONObject json) {
+        if (json == null) return null;
+        SmsNumbersItem s = new SmsNumbersItem();
+        s.number = JsonUtils.getString(json, "number");
+        s.country = JsonUtils.getString(json, "country");
+        s.status = JsonUtils.getString(json, "status");
+        return s;
+    }
 }

@@ -1,25 +1,25 @@
 package com.manybrain.mailinator.client.message;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.json.simple.JSONObject;
 
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class SmtpLog {
+    private List<EmailLogEntry> logEntries;
 
-	@JsonProperty("log")
-	private List<EmailLogEntry> logEntries;
-
+    public static SmtpLog fromJson(JSONObject json) {
+        if (json == null) return null;
+        SmtpLog s = new SmtpLog();
+        s.logEntries = JsonUtils.getList(json, "log", EmailLogEntry::fromJson);
+        return s;
+    }
 }

@@ -1,39 +1,51 @@
 package com.manybrain.mailinator.client.rule;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RuleToCreate
 {
-
-    @JsonProperty("description")
     private String description;
     @Builder.Default
-    @JsonProperty("enabled")
     private Boolean enabled = Boolean.TRUE;
     @Builder.Default
-    @JsonProperty("match")
     public MatchType match = MatchType.ALL;
     @NonNull
-    @JsonProperty("name")
     private String name;
     @NonNull
-    @JsonProperty("priority")
     private Integer priority;
     @NonNull
-    @JsonProperty("conditions")
     private List<Condition> conditions;
     @NonNull
-    @JsonProperty("actions")
     private List<Action> actions;
+
+    @SuppressWarnings("unchecked")
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        if (description != null) json.put("description", description);
+        json.put("enabled", enabled != null ? enabled : Boolean.TRUE);
+        json.put("match", match != null ? match.name() : MatchType.ALL.name());
+        json.put("name", name);
+        json.put("priority", priority);
+        JSONArray condArray = new JSONArray();
+        if (conditions != null) {
+            for (Condition c : conditions) condArray.add(c.toJSON());
+        }
+        json.put("conditions", condArray);
+        JSONArray actArray = new JSONArray();
+        if (actions != null) {
+            for (Action a : actions) actArray.add(a.toJSON());
+        }
+        json.put("actions", actArray);
+        return json;
+    }
 }

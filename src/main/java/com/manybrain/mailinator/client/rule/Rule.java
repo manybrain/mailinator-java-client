@@ -1,31 +1,33 @@
 package com.manybrain.mailinator.client.rule;
 
+import com.manybrain.mailinator.client.JsonUtils;
+import lombok.Data;
+import org.json.simple.JSONObject;
+
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Rule
 {
-
-    @JsonProperty("_id")
     public String id;
-    @JsonProperty("description")
     public String description;
-    @JsonProperty("enabled")
     public Boolean enabled;
-    @JsonProperty("match")
     public MatchType match;
-    @JsonProperty("name")
     public String name;
-    @JsonProperty("conditions")
     public List<Condition> conditions;
-    @JsonProperty("actions")
     public List<Action> actions;
 
+    public static Rule fromJson(JSONObject json) {
+        if (json == null) return null;
+        Rule r = new Rule();
+        r.id = JsonUtils.getString(json, "_id");
+        r.description = JsonUtils.getString(json, "description");
+        r.enabled = JsonUtils.getBoolean(json, "enabled");
+        String match = JsonUtils.getString(json, "match");
+        r.match = match != null ? MatchType.valueOf(match) : null;
+        r.name = JsonUtils.getString(json, "name");
+        r.conditions = JsonUtils.getList(json, "conditions", Condition::fromJson);
+        r.actions = JsonUtils.getList(json, "actions", Action::fromJson);
+        return r;
+    }
 }

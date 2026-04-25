@@ -6,10 +6,16 @@ import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * @deprecated This endpoint is not present in the current OpenAPI specification and may be removed in a future release.
+ * Use {@link GetAuthenticatorsByIdRequest} instead.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class GetAuthenticatorByIdRequest implements Request<Authenticator> {
 
@@ -24,8 +30,9 @@ public class GetAuthenticatorByIdRequest implements Request<Authenticator> {
   public Authenticator execute(String apiToken) {
     WebTarget webTarget = WEB_TARGET.resolveTemplate("auth_id", emptyIfNull(Id));
 
-    return webTarget.request(MediaType.APPLICATION_JSON_TYPE).header(AUTHORIZATION, apiToken)
-        .get(Authenticator.class);
+    String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE).header(AUTHORIZATION, apiToken)
+        .get(String.class);
+    return Authenticator.fromJson(JsonUtils.parseObject(response));
   }
 
 }

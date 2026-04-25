@@ -18,7 +18,7 @@ class GetAuthenticatorsByIdRequestTest
     })
     void testGetAuthenticatorsByIdRequest()
     {
-        Authenticator authenticator = getMailinatorClient().request(new GetAuthenticatorsByIdRequest(ENV_AUTH_ID));
+        Authenticator authenticator = getMailinatorClient().request(new GetAuthenticatorsByIdRequest(System.getenv(ENV_AUTH_ID)));
         Assertions.assertNotNull(authenticator);
     }
 }

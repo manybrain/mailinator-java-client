@@ -27,8 +27,7 @@ public class PrivateCustomServiceWebhookRequest implements RequestWithoutApiToke
 
   @Override
   public String execute() {
-    WebTarget webTarget = WEB_TARGET.resolveTemplate("wh-token", emptyIfNull(webhookToken))
-                                    .resolveTemplate("customService", emptyIfNull(customService));
+    WebTarget webTarget = WEB_TARGET.resolveTemplate("customService", emptyIfNull(customService));
 
     if (webhookToken != null)
     {
@@ -36,7 +35,7 @@ public class PrivateCustomServiceWebhookRequest implements RequestWithoutApiToke
     }
     
     return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
-        .post(Entity.json(webhook), String.class);
+        .post(Entity.entity(webhook.toJSON().toJSONString(), MediaType.APPLICATION_JSON_TYPE), String.class);
   }
 
 }

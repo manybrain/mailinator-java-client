@@ -29,6 +29,8 @@ public class TestEnv
     public static final String ENV_AUTH_ID = "MAILINATOR_TEST_AUTH_ID";
     public static final String ENV_WEBHOOK_INBOX = "MAILINATOR_TEST_WEBHOOK_INBOX";
     public static final String ENV_WEBHOOK_CUSTOMSERVICE = "MAILINATOR_TEST_WEBHOOK_CUSTOMSERVICE";
+    public static final String ENV_REAL_MESSAGE_ID = "MAILINATOR_TEST_REAL_MESSAGE_ID";
+    public static final String ENV_ENABLE_STREAM = "MAILINATOR_TEST_ENABLE_STREAM";
 
     // variables initialization
 
@@ -40,7 +42,7 @@ public class TestEnv
             {
                 if (client == null)
                 {
-                    client = new MailinatorClient(ENV_API_TOKEN);
+                    client = new MailinatorClient(System.getenv(ENV_API_TOKEN));
                 }
             }
         }
@@ -70,7 +72,7 @@ public class TestEnv
             {
                 if (privateDomain == null)
                 {
-                    privateDomain = ENV_DOMAIN_PRIVATE;
+                    privateDomain = System.getenv(ENV_DOMAIN_PRIVATE);
                 }
             }
         }
@@ -85,7 +87,7 @@ public class TestEnv
             {
                 if (inboxTest == null)
                 {
-                    inboxTest = ENV_INBOX_TEST;
+                    inboxTest = System.getenv(ENV_INBOX_TEST);
                 }
             }
         }
@@ -100,7 +102,7 @@ public class TestEnv
             {
                 if (messageWithAttachmentId == null)
                 {
-                    messageWithAttachmentId = ENV_MESSAGE_WITH_ATTACHMENT_ID;
+                    messageWithAttachmentId = System.getenv(ENV_MESSAGE_WITH_ATTACHMENT_ID);
                 }
             }
         }
@@ -115,7 +117,7 @@ public class TestEnv
             {
                 if (attachmentId == null)
                 {
-                    attachmentId = Integer.valueOf(ENV_ATTACHMENT_ID);
+                    attachmentId = Integer.valueOf(System.getenv(ENV_ATTACHMENT_ID));
                 }
             }
         }
@@ -130,7 +132,7 @@ public class TestEnv
             {
                 if (phoneNumber == null)
                 {
-                    phoneNumber = ENV_PHONE_NUMBER;
+                    phoneNumber = System.getenv(ENV_PHONE_NUMBER);
                 }
             }
         }

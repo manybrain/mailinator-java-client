@@ -1,16 +1,19 @@
 package com.manybrain.mailinator.client.message;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
+import org.json.simple.JSONObject;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeletedMessages {
+    private String status;
+    private Integer count;
 
-  @JsonProperty("status")
-  private String status;
-  @JsonProperty("count")
-  private Integer count;
-
+    public static DeletedMessages fromJson(JSONObject json) {
+        if (json == null) return null;
+        DeletedMessages d = new DeletedMessages();
+        d.status = JsonUtils.getString(json, "status");
+        d.count = JsonUtils.getInteger(json, "count");
+        return d;
+    }
 }

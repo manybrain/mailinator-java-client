@@ -1,5 +1,6 @@
 package com.manybrain.mailinator.client.domain;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariables;
@@ -11,6 +12,7 @@ import static com.manybrain.mailinator.client.TestEnv.getMailinatorClient;
 import static com.manybrain.mailinator.client.TestUtils.createNewDomain;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Disabled("Deprecated: CreateDomainRequest is deprecated and will be removed in a future version")
 class CreateDomainRequestTest {
 
 	@Test

@@ -7,6 +7,7 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 import com.manybrain.mailinator.client.ResponseStatus;
 
@@ -15,6 +16,10 @@ import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
+/**
+ * @deprecated Rules management endpoints have been deprecated and will be removed in a future release.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class EnableRuleRequest implements Request<ResponseStatus> {
 
@@ -31,9 +36,10 @@ public class EnableRuleRequest implements Request<ResponseStatus> {
 		WebTarget webTarget = WEB_TARGET.resolveTemplate("domain_id", emptyIfNull(streamId))
 										.resolveTemplate("rule_id", emptyIfNull(ruleId));
 
-		return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
-						.header(AUTHORIZATION, apiToken)
-						.put(Entity.json("{}"), ResponseStatus.class);
+String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+								.header(AUTHORIZATION, apiToken)
+								.put(Entity.json("{}"), String.class);
+		return ResponseStatus.fromJson(JsonUtils.parseObject(response));
 	}
 
 }

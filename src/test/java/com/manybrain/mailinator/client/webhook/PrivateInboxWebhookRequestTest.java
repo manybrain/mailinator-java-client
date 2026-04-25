@@ -20,7 +20,7 @@ class PrivateInboxWebhookRequestTest {
 	void testPrivateInboxWebhookRequest() {
 		Webhook webhook = getWebhookToAdd();
 
-		PrivateWebhookResponse response = getMailinatorClientWithoutApiToken().request(new PrivateInboxWebhookRequest(ENV_WEBHOOKTOKEN_PRIVATEDOMAIN, ENV_WEBHOOK_INBOX, webhook));
+        PrivateWebhookResponse response = getMailinatorClientWithoutApiToken().request(new PrivateInboxWebhookRequest(System.getenv(ENV_WEBHOOKTOKEN_PRIVATEDOMAIN), System.getenv(ENV_WEBHOOK_INBOX), webhook));
 		assertNotNull(response);
 	}
 

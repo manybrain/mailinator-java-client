@@ -3,6 +3,7 @@ package com.manybrain.mailinator.client.rule;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 import com.manybrain.mailinator.client.ResponseStatus;
 
@@ -14,6 +15,10 @@ import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
+/**
+ * @deprecated Rules management endpoints have been deprecated and will be removed in a future release.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class DeleteRuleRequest
         implements Request<ResponseStatus>
@@ -34,9 +39,10 @@ public class DeleteRuleRequest
                                       .resolveTemplate("domain_id", emptyIfNull(domainId))
                                       .resolveTemplate("rule_id", emptyIfNull(ruleId));
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)
-                        .delete(ResponseStatus.class);
+                        .delete(String.class);
+        return ResponseStatus.fromJson(JsonUtils.parseObject(response));
     }
 
 

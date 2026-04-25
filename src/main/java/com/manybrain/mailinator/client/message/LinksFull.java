@@ -1,19 +1,19 @@
 package com.manybrain.mailinator.client.message;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
+import org.json.simple.JSONObject;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class LinksFull {
+    private List<LinkEntity> links;
 
-	@JsonProperty("links")
-	private List<LinkEntity> links;
-
+    public static LinksFull fromJson(JSONObject json) {
+        if (json == null) return null;
+        LinksFull l = new LinksFull();
+        l.links = JsonUtils.getList(json, "links", LinkEntity::fromJson);
+        return l;
+    }
 }

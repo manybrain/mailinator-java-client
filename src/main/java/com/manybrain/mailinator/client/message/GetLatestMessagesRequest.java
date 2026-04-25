@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 
 import static com.manybrain.mailinator.client.JerseyClient.BASE_URL;
@@ -13,6 +14,11 @@ import static com.manybrain.mailinator.client.JerseyClient.CLIENT;
 import static com.manybrain.mailinator.client.Utils.emptyIfNull;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
+/**
+ * @deprecated This endpoint is not present in the current OpenAPI specification and is known to return server errors.
+ * Use {@link GetInboxRequest} instead.
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class GetLatestMessagesRequest
         implements Request<Inbox>
@@ -29,9 +35,10 @@ public class GetLatestMessagesRequest
     {
         WebTarget webTarget = WEB_TARGET.resolveTemplate("domain", emptyIfNull(domain));
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)
-                        .get(Inbox.class);
+                        .get(String.class);
+        return Inbox.fromJson(JsonUtils.parseObject(response));
     }
 
 

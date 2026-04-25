@@ -1,21 +1,21 @@
 package com.manybrain.mailinator.client.stats;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
+import org.json.simple.JSONObject;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamInfo{
+public class TeamInfo {
+    private String serverTime;
+    private List<String> domains;
 
-	@JsonProperty("server_time")
-	private String serverTime;
-
-	@JsonProperty("private_domains")
-	private List<String> domains;
+    public static TeamInfo fromJson(JSONObject json) {
+        if (json == null) return null;
+        TeamInfo t = new TeamInfo();
+        t.serverTime = JsonUtils.getString(json, "server_time");
+        t.domains = JsonUtils.getStringList(json, "private_domains");
+        return t;
+    }
 }

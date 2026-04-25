@@ -22,7 +22,7 @@ class PrivateCustomServiceInboxWebhookRequestTest {
 	void testPrivateCustomServiceInboxWebhookRequest() {
 		Webhook webhook = getWebhookToAdd();
 
-		String response = getMailinatorClientWithoutApiToken().request(new PrivateCustomServiceInboxWebhookRequest(ENV_WEBHOOKTOKEN_CUSTOMSERVICE, ENV_WEBHOOK_CUSTOMSERVICE, ENV_WEBHOOK_INBOX, webhook));
+		String response = getMailinatorClientWithoutApiToken().request(new PrivateCustomServiceInboxWebhookRequest(System.getenv(ENV_WEBHOOKTOKEN_CUSTOMSERVICE), System.getenv(ENV_WEBHOOK_CUSTOMSERVICE), System.getenv(ENV_WEBHOOK_INBOX), webhook));
 		// assertNotNull(responseStatus);
 	}
 

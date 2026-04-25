@@ -1,23 +1,27 @@
 package com.manybrain.mailinator.client.authenticator;
 
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.manybrain.mailinator.client.JsonUtils;
 import lombok.Data;
+import org.json.simple.JSONObject;
+
+import java.util.List;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Authenticator {
+    private String id;
+    private Integer timeStep;
+    private List<String> futureCodes;
+    private Integer nextResetSeconds;
+    private String passcode;
 
-  @JsonProperty("id")
-  private String Id;
-  @JsonProperty("time_step")
-  public Integer TimeStep;
-  @JsonProperty("futurecodes")
-  public List<String> FutureCodes;
-  @JsonProperty("next_reset_secs")
-  public Integer NextResetSeconds;
-  @JsonProperty("passcode")
-  public String Passcode;
-
+    public static Authenticator fromJson(JSONObject json) {
+        if (json == null) return null;
+        Authenticator a = new Authenticator();
+        a.id = JsonUtils.getString(json, "id");
+        a.timeStep = JsonUtils.getInteger(json, "time_step");
+        a.futureCodes = JsonUtils.getStringList(json, "futurecodes");
+        a.nextResetSeconds = JsonUtils.getInteger(json, "next_reset_secs");
+        a.passcode = JsonUtils.getString(json, "passcode");
+        return a;
+    }
 }

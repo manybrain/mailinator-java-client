@@ -3,6 +3,7 @@ package com.manybrain.mailinator.client.message;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 
+import com.manybrain.mailinator.client.JsonUtils;
 import com.manybrain.mailinator.client.Request;
 
 import lombok.AllArgsConstructor;
@@ -50,7 +51,7 @@ public class GetInboxRequest
     public Inbox execute(String apiToken)
     {
         WebTarget webTarget = WEB_TARGET.resolveTemplate("domain", emptyIfNull(domain))
-                                        .resolveTemplate("inbox", emptyIfNull(inbox));
+                                        .resolveTemplate("inbox", inbox != null ? inbox : "*");
 
         if (skip != null)
         {
@@ -85,9 +86,10 @@ public class GetInboxRequest
             webTarget = webTarget.queryParam("wait", wait);
         }
 
-        return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+        String response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
                         .header(AUTHORIZATION, apiToken)
-                        .get(Inbox.class);
+                        .get(String.class);
+        return Inbox.fromJson(JsonUtils.parseObject(response));
     }
 
 }
